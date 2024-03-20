@@ -1,0 +1,17 @@
+{
+  "id": "home",
+  "label": "Home",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "Title",
+          "placeholder": ""
+        }
+      }
+    }
+  }
+}
