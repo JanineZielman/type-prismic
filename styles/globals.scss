@@ -57,12 +57,17 @@ input[type='number']{
   right: 50px;
 }
 
+
 @media print{
-  button, div, input{
+  button, input, label, h1{
     display: none;
   }
-  canvas{
-    width: 115px!important;
-    height: 115px!important;
+  // canvas{
+  //   width: 115px!important;
+  //   height: 115px!important;
+  // }
+  @page {
+    size: 594mm 420mm ;
+    margin: 0;
   }
 }
