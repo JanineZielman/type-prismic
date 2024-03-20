@@ -152,7 +152,7 @@ let s1 = function(sketch) {
       
      
       sketch.push();
-      sketch.translate(this.x, this.y);
+      sketch.translate(this.x + this.size/2, this.y + this.size/2);
       if (gridR.checked()) {
         sketch.rotate(45);
       }
@@ -167,113 +167,109 @@ let s1 = function(sketch) {
       sketch.pop();
       if(this.color == 80){
         sketch.push();
-        sketch.translate(this.x + this.size/2,this.y + this.size/2);
-        sketch.imageMode(sketch.CENTER);
-        sketch.rectMode(sketch.CENTER);
-        sketch.angleMode(sketch.DEGREES);  
-        sketch.noStroke();
-      
-        if (this.colors && !this.eraser) {
-          sketch.fill(100+ this.r, 50, 50+this.b);
-          if (this.random && !this.eraser){
-            sketch.push();
-              sketch.translate(-(this.size/2), -(this.size/2));
-              if (this.gridR) {
-                sketch.rotate(45);
-              } 
-              if (gridAn){
-                sketch.rotate(move);
-              }
-              if (this.spin && !this.eraser) {
-                sketch.rotate(sketch.random(360));
-              } else {
-                if (this.rotates && !this.eraser) {
-                  sketch.rotate(this.rotate * 45);
-                } else {
-                  sketch.rotate(0);
+          sketch.translate(this.x + this.size/2,this.y + this.size/2);
+          sketch.imageMode(sketch.CENTER);
+          sketch.rectMode(sketch.CENTER);
+          sketch.angleMode(sketch.DEGREES);  
+          sketch.noStroke();
+        
+          if (this.colors && !this.eraser) {
+            sketch.fill(100+ this.r, 50, 50+this.b);
+            if (this.random && !this.eraser){
+              sketch.push();
+                if (this.gridR) {
+                  sketch.rotate(45);
+                } 
+                if (gridAn){
+                  sketch.rotate(move);
                 }
-      
-              }
-              sketch.fill(sketch.random(255),sketch.random(255),sketch.random(255));
-              sketch.ellipse(0,0,sketch.random(5,this.size), sketch.random(5,this.size));
-            sketch.pop();
-          } else {
-            sketch.push();
-              sketch.translate(-(this.size/2), -(this.size/2));
-              if (this.gridR) {
-                sketch.rotate(45);
-              }
-              if (this.gridAn) {
-                sketch.rotate(move);
-              }
-              if (this.spin && !this.eraser) {
-                sketch.rotate(sketch.random(360));
-              } else {
-                if (this.rotates && !this.eraser) {
-                  sketch.rotate(this.rotate * 45);
+                if (this.spin && !this.eraser) {
+                  sketch.rotate(sketch.random(360));
                 } else {
-                  sketch.rotate(0);
+                  if (this.rotates && !this.eraser) {
+                    sketch.rotate(this.rotate * 45);
+                  } else {
+                    sketch.rotate(0);
+                  }
+        
                 }
-      
-              }
-              sketch.rect(0,0,this.r/10, this.size);
-            sketch.pop();
+                sketch.fill(sketch.random(255),sketch.random(255),sketch.random(255));
+                sketch.ellipse(0,0,sketch.random(5,this.size), sketch.random(5,this.size));
+              sketch.pop();
+            } else {
+              sketch.push();
+                if (this.gridR) {
+                  sketch.rotate(45);
+                }
+                if (this.gridAn) {
+                  sketch.rotate(move);
+                }
+                if (this.spin && !this.eraser) {
+                  sketch.rotate(sketch.random(360));
+                } else {
+                  if (this.rotates && !this.eraser) {
+                    sketch.rotate(this.rotate * 45);
+                  } else {
+                    sketch.rotate(0);
+                  }
+        
+                }
+                sketch.rect(0,0,this.r/10, this.size);
+              sketch.pop();
+            }
+            
+          } else{
+            if (this.random && !this.eraser){
+              sketch.push();
+                sketch.fill(0);
+                if (this.gridR) {
+                  sketch.rotate(45);
+                }
+                if (this.gridAn) {
+                  sketch.rotate(move);
+                }
+                if (this.spin && !this.eraser) {
+                  sketch.rotate(sketch.random(360));
+                } else {
+                  if (this.rotates && !this.eraser) {
+                    sketch.rotate(this.rotate * 45);
+                  } else {
+                    sketch.rotate(0);
+                  }
+        
+                }
+                sketch.ellipse(0,0,sketch.random(5,50), sketch.random(5,50));
+              sketch.pop();
+            } else {
+              sketch.push();
+                if (this.gridR) {
+                  sketch.rotate(45);
+                }
+                if (this.gridAn) {
+                  sketch.rotate(move);
+                }
+                if (this.spin && !this.eraser) {
+                  sketch.rotate(sketch.random(360));
+                } else {
+                  if (this.rotates && !this.eraser) {
+                    sketch.rotate(this.rotate * 45);
+                  } else {
+                    sketch.rotate(0);
+                  }
+        
+                }
+                sketch.imageMode(sketch.CENTER);
+                sketch.image(this.current, 0,0, this.size, this.size);
+              sketch.pop();
+            }
           }
           
-        } else{
-          if (this.random && !this.eraser){
-            sketch.push();
-              sketch.fill(0);
-              sketch.translate(-(this.size/2), -(this.size/2));
-              if (this.gridR) {
-                sketch.rotate(45);
-              }
-              if (this.gridAn) {
-                sketch.rotate(move);
-              }
-              if (this.spin && !this.eraser) {
-                sketch.rotate(sketch.random(360));
-              } else {
-                if (this.rotates && !this.eraser) {
-                  sketch.rotate(this.rotate * 45);
-                } else {
-                  sketch.rotate(0);
-                }
-      
-              }
-              sketch.ellipse(0,0,sketch.random(5,50), sketch.random(5,50));
-            sketch.pop();
-          } else {
-            sketch.push();
-              sketch.translate(-(this.size/2), -(this.size/2));
-              if (this.gridR) {
-                sketch.rotate(45);
-              }
-              if (this.gridAn) {
-                sketch.rotate(move);
-              }
-              if (this.spin && !this.eraser) {
-                sketch.rotate(sketch.random(360));
-              } else {
-                if (this.rotates && !this.eraser) {
-                  sketch.rotate(this.rotate * 45);
-                } else {
-                  sketch.rotate(0);
-                }
-      
-              }
-              sketch.imageMode(sketch.CENTER);
-              sketch.image(this.current, 0,0, this.size, this.size);
-            sketch.pop();
+          if(this.eraser){
+            sketch.fill(255);
+            sketch.rotate(0);
+            sketch.noStroke();
+            sketch.rect(0,0,this.size,this.size);
           }
-        }
-        
-        if(this.eraser){
-          sketch.fill(255);
-          sketch.rotate(0);
-          sketch.noStroke();
-          sketch.rect(0,0,this.size,this.size);
-        }
         
         sketch.pop();
       }
