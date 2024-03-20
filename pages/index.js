@@ -15,6 +15,12 @@ const Index = ({ page}) => {
     >
       <div className="container">
         <h1>{page.data.title}</h1>
+        <div className="var">
+          <label for="width">width:</label>
+          <input type="number" id="width" name="width" min="500"/>
+          <label for="height">height:</label>
+          <input type="number" id="height" name="height" min="500"/>
+        </div>
         <button onClick={createCanvas}>+</button>
       </div>
     </Layout>

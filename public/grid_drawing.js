@@ -6,9 +6,15 @@ let s1 = function(sketch) {
   let value = 40;
   let value2 = 40;
 
+  let inputWidth, inputHeight, button;
+
+  let width = 550;
+  let height = 580;
+
   let checkbox1, checkbox2, checkbox3, checkbox4, checkbox5, checkbox6, eraser, fade;
 
-  let gridSize = 500;
+  let gridWidth = 500;
+  let gridHeight = 500;
 
 
   sketch.preload = function() {
@@ -19,11 +25,23 @@ let s1 = function(sketch) {
 
 
   sketch.setup = function() {
-    sketch.createCanvas(550, 580);
+    if (sketch.select('#width').value() > 0){
+      if (sketch.select('#width').value() > 499){
+        gridWidth = sketch.select('#width').value();
+      }
+    }
+    if (sketch.select('#height').value() > 0){
+      if (sketch.select('#height').value() > 499){
+        gridHeight = sketch.select('#height').value();
+      }
+    }
+
+    sketch.createCanvas(sketch.int(gridWidth) + 50, sketch.int(gridHeight) + 80);
     slider = sketch.createSlider(10, 100);
     slider.position(10 + sketch.canvas.offsetLeft, 10 + sketch.canvas.offsetTop);
     slider.size(200);
     sketch.angleMode(sketch.DEGREES);
+
 
     checkbox1 = sketch.createCheckbox('grid', false);
     checkbox1.position(220 + sketch.canvas.offsetLeft, 10 + sketch.canvas.offsetTop);
@@ -50,9 +68,10 @@ let s1 = function(sketch) {
     eraser.position(470 + sketch.canvas.offsetLeft, 10 + sketch.canvas.offsetTop);
     
     sketch.background(255);
+
     
-    for (let i = 10; i < gridSize; i += value) {
-      for (let j = 80; j < gridSize + 50; j += value) {
+    for (let i = 10; i < gridWidth; i += value) {
+      for (let j = 80; j < gridHeight + 50; j += value) {
         let sq = new Square(i, j, value, value2);
         squares.push(sq);
       }
@@ -61,8 +80,8 @@ let s1 = function(sketch) {
     slider.input(() => {
       value = slider.value();
       squares.length = 0;
-      for (let i = 10; i < gridSize; i += value) {
-        for (let j = 80; j < gridSize + 50; j += value) {
+      for (let i = 10; i < gridWidth; i += value) {
+        for (let j = 80; j < gridHeight + 50; j += value) {
           let sq = new Square(i, j, value, value2);
           squares.push(sq);
         }
@@ -76,7 +95,6 @@ let s1 = function(sketch) {
     for (let sq of squares) {
       sq.display();
     }
-    
   }
 
   sketch.mouseDragged = function() {
