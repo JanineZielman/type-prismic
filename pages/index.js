@@ -27,7 +27,7 @@ const Index = ({ page}) => {
         <div className="images">
           {page.data.images.map((item, i) =>{
             return(
-              <PrismicNextImage className="img" field={item.image}/>
+              <PrismicNextImage className="img" alt={item.image.alt} key={`img${i}`} field={item.image}/>
             )
           })}
         </div>

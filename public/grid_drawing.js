@@ -293,55 +293,19 @@ let s1 = function(sketch) {
         this.gridR = gridR.checked();
         this.gridAn = gridAn.checked();
 
-        if ( sketch.keyIsDown(81) ) { //q
-          this.current =  imageList[1] 
-        } 
-        else if (sketch.keyIsDown(87)) { //w
-          this.current =  imageList[2]
-        } 
-        else if (sketch.keyIsDown(69)) { //e
-          this.current =  imageList[3]
+        let keyboardList = [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77]
+        let imageChange = imageList[0];
+
+        for (let i = 0; i < imageList.length; i++) {
+          if ( sketch.keyIsDown(keyboardList[i]) ) {
+            imageChange = imageList[i] 
+          } else {
+            this.current =  imageList[0]
+          }
         }
-        else if (sketch.keyIsDown(82)) { //r
-          this.current =  imageList[4]
-        }
-        else if (sketch.keyIsDown(84)) { //t
-          this.current =  imageList[5]
-        }
-        else if (sketch.keyIsDown(89)) { //y
-          this.current =  imageList[6]
-        }
-        else if (sketch.keyIsDown(85)) { //u
-          this.current =  imageList[7]
-        }
-        else if (sketch.keyIsDown(73)) { //i
-          this.current =  imageList[8]
-        }
-        else if (sketch.keyIsDown(79)) { //o
-          this.current =  imageList[9]
-        }
-        else if (sketch.keyIsDown(80)) { //p
-          this.current =  imageList[10]
-        }
-        else if (sketch.keyIsDown(65)) { //a
-          this.current =  imageList[11]
-        }
-        else if (sketch.keyIsDown(83)) { //s
-          this.current =  imageList[12]
-        }
-        else if (sketch.keyIsDown(68)) { //d
-          this.current =  imageList[13]
-        }
-        else if (sketch.keyIsDown(70)) { //f
-          this.current =  imageList[14]
-        }
-        else if (sketch.keyIsDown(71)) { //g
-          this.current =  imageList[15]
-        }
-        
-        else {
-          this.current =  imageList[0]
-        }
+
+        this.current = imageChange;
+
       }
     }
 
