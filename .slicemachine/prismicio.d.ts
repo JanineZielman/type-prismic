@@ -6,6 +6,21 @@ import type * as prismicClient from "@prismicio/client";
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
 /**
+ * Item in *Home → Images*
+ */
+export interface HomeDocumentDataImagesItem {
+	/**
+	 * Image field in *Home → Images*
+	 *
+	 * - **Field Type**: Image
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: home.images[].image
+	 * - **Documentation**: https://prismic.io/docs/field#image
+	 */
+	image: prismic.ImageField<never>;
+}
+
+/**
  * Content for Home documents
  */
 interface HomeDocumentData {
@@ -19,6 +34,17 @@ interface HomeDocumentData {
 	 * - **Documentation**: https://prismic.io/docs/field#key-text
 	 */
 	title: prismic.KeyTextField;
+	
+	/**
+	 * Images field in *Home*
+	 *
+	 * - **Field Type**: Group
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: home.images[]
+	 * - **Tab**: Main
+	 * - **Documentation**: https://prismic.io/docs/field#group
+	 */
+	images: prismic.GroupField<Simplify<HomeDocumentDataImagesItem>>;
 }
 
 /**
@@ -43,6 +69,7 @@ declare module "@prismicio/client" {
 		export type {
 			HomeDocument,
 			HomeDocumentData,
+			HomeDocumentDataImagesItem,
 			AllDocumentTypes
 		}
 	}

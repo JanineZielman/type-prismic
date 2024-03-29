@@ -11,6 +11,25 @@
           "label": "Title",
           "placeholder": ""
         }
+      },
+      "images": {
+        "type": "Group",
+        "config": {
+          "label": "Images",
+          "fields": {
+            "image": {
+              "type": "Image",
+              "config": {
+                "label": "Image",
+                "constraint": {
+                  "width": 100,
+                  "height": null
+                },
+                "thumbnails": []
+              }
+            }
+          }
+        }
       }
     }
   }

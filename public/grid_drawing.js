@@ -15,8 +15,9 @@ let s1 = function(sketch) {
 
 
   sketch.preload = function() {
-    for(let i = 0 ; i < 16; i++){
-      imageList[i] = sketch.loadImage("data/SVG/Asset-"+(i)+".svg");
+    for(let i = 0 ; i < document.getElementsByClassName('img').length; i++){
+      let url = document.getElementsByClassName('img')[i].src.split('?')[0];
+      imageList[i] = sketch.loadImage(url);      
     }
   }
 
@@ -293,49 +294,49 @@ let s1 = function(sketch) {
         this.gridAn = gridAn.checked();
 
         if ( sketch.keyIsDown(81) ) { //q
-          this.current =  imageList[15] 
+          this.current =  imageList[1] 
         } 
         else if (sketch.keyIsDown(87)) { //w
-          this.current =  imageList[1]
+          this.current =  imageList[2]
         } 
         else if (sketch.keyIsDown(69)) { //e
-          this.current =  imageList[2]
-        }
-        else if (sketch.keyIsDown(82)) { //r
           this.current =  imageList[3]
         }
-        else if (sketch.keyIsDown(84)) { //t
+        else if (sketch.keyIsDown(82)) { //r
           this.current =  imageList[4]
         }
-        else if (sketch.keyIsDown(89)) { //y
+        else if (sketch.keyIsDown(84)) { //t
           this.current =  imageList[5]
         }
-        else if (sketch.keyIsDown(85)) { //u
+        else if (sketch.keyIsDown(89)) { //y
           this.current =  imageList[6]
         }
-        else if (sketch.keyIsDown(73)) { //i
+        else if (sketch.keyIsDown(85)) { //u
           this.current =  imageList[7]
         }
-        else if (sketch.keyIsDown(79)) { //o
+        else if (sketch.keyIsDown(73)) { //i
           this.current =  imageList[8]
         }
-        else if (sketch.keyIsDown(80)) { //p
+        else if (sketch.keyIsDown(79)) { //o
           this.current =  imageList[9]
         }
-        else if (sketch.keyIsDown(65)) { //a
+        else if (sketch.keyIsDown(80)) { //p
           this.current =  imageList[10]
         }
-        else if (sketch.keyIsDown(83)) { //s
+        else if (sketch.keyIsDown(65)) { //a
           this.current =  imageList[11]
         }
-        else if (sketch.keyIsDown(68)) { //d
+        else if (sketch.keyIsDown(83)) { //s
           this.current =  imageList[12]
         }
-        else if (sketch.keyIsDown(70)) { //f
+        else if (sketch.keyIsDown(68)) { //d
           this.current =  imageList[13]
         }
-        else if (sketch.keyIsDown(71)) { //g
+        else if (sketch.keyIsDown(70)) { //f
           this.current =  imageList[14]
+        }
+        else if (sketch.keyIsDown(71)) { //g
+          this.current =  imageList[15]
         }
         
         else {
