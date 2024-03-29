@@ -63,6 +63,11 @@ input[type='number']{
   height: 0;
 }
 
+#save{
+  left: 0;
+  width: fit-content;
+}
+
 
 @media print{
   button, input, label, h1{

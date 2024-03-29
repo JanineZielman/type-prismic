@@ -108,14 +108,15 @@ let s1 = function(sketch) {
 
   sketch.keyPressed = function() {
     if (sketch.keyCode === 32) {
-      var image = sketch.canvas.toDataURL("image/png").replace("image/png", "image/octet-stream")
-      window.location.href=image;
-      console.log(image)
+      // var image = sketch.canvas.toDataURL("image/png").replace("image/png", "image/octet-stream")
+      // window.location.href=image;
+      // console.log(image)
+      sketch.saveGif('mySketch', 5);
     }
   }
 
   class Square {
-    constructor(x, y, size, size2) {
+    constructor(x, y, size) {
       this.x = x;
       this.y = y;
       this.size = size;

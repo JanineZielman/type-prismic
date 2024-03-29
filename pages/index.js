@@ -12,6 +12,7 @@ const Index = ({ page}) => {
   function createCanvas(){
     new p5(s1);
   }
+
   return (
     <Layout
     >
@@ -31,6 +32,7 @@ const Index = ({ page}) => {
             )
           })}
         </div>
+        {/* <div className="output"></div> */}
       </div>
     </Layout>
   );
