@@ -21,6 +21,10 @@ const Index = ({ page}) => {
       });
     }
 
+    document.getElementById('eraser').addEventListener("click", function() {
+      document.getElementById('eraser').classList.toggle("active");
+    });
+
     var pressedDown = false;
     $(document).on('mousedown', function(){
       pressedDown = true;     // When mouse goes down, set pressedDown to true
@@ -30,7 +34,12 @@ const Index = ({ page}) => {
     });
     
     $('.grid').mousedown(function(){
-      $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+      if (document.getElementById('eraser').className == 'active'){
+        $(this).css({'backgroundImage': ``});
+      } else {
+        $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+      }
+     
     });
 
     $('.grid').mouseup(function(){
@@ -39,7 +48,11 @@ const Index = ({ page}) => {
     
     $('.grid').mouseover(function(){
       if(pressedDown) {
-        $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+        if (document.getElementById('eraser').className == 'active'){
+          $(this).css({'backgroundImage': ``});
+        } else {
+          $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+        }
       }
     });
   }
@@ -114,6 +127,7 @@ const Index = ({ page}) => {
         <div className="menu">
           <div onClick={addGrid}>Add grid</div>
           <div onClick={addLayer}>Add Layer</div>
+          <div id="eraser">Eraser</div>
           <div onClick={clearGrid}>Clear all</div>
         </div>
         <br/>

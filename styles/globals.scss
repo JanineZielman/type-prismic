@@ -82,9 +82,12 @@ button.grid {
   display: flex;
   position: relative;
   div{
-    padding: 10px;
+    padding: 5px;
     margin-right: 10px;
     cursor: pointer;
+  }
+  & .active{
+    background-color: lightgreen;
   }
 }
 
