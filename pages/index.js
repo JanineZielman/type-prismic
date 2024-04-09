@@ -11,6 +11,16 @@ const Index = ({ page}) => {
   });
 
   function checkGrid(){
+    var header = document.getElementById("images");
+    var btns = header.getElementsByClassName("img");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function() {
+      var current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace(" active", "");
+      this.className += " active";
+      });
+    }
+
     var pressedDown = false;
     $(document).on('mousedown', function(){
       pressedDown = true;     // When mouse goes down, set pressedDown to true
@@ -20,7 +30,8 @@ const Index = ({ page}) => {
     });
     
     $('.grid').mousedown(function(){
-      $(this).css({'backgroundImage': 'url(/data/SVG/Asset-0.svg)'});
+      $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+      
     });
 
     $('.grid').mouseup(function(){
@@ -29,7 +40,7 @@ const Index = ({ page}) => {
     
     $('.grid').mouseover(function(){
       if(pressedDown) {
-        $(this).css({'backgroundImage': 'url(/data/SVG/Asset-0.svg)'});
+        $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
       }
     });
   }
@@ -65,10 +76,10 @@ const Index = ({ page}) => {
       <div className="container">
         <h1>{page.data.title}</h1>
 
-        <div className="images">
+        <div className="images" id="images">
           {page.data.images.map((item, i) =>{
             return(
-              <PrismicNextImage className="img" alt={"type-tool"} key={`img${i}`} field={item.image}/>
+              <PrismicNextImage className={`img ${i == 0 && 'active'}`} alt={"type-tool"} key={`img${i}`} field={item.image}/>
             )
           })}
         </div>
