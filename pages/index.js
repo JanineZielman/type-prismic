@@ -1,62 +1,16 @@
+import Head from "next/head";
+import * as prismicH from "@prismicio/helpers";
+
 import { createClient } from "../prismicio";
 import { Layout } from "../components/Layout";
+import Link from "next/link";
+import { PrismicRichText } from "@prismicio/react";
 import { PrismicNextImage } from "@prismicio/next";
-import { useEffect, useRef } from "react";
 
 
 const Index = ({ page}) => {
-
-  useEffect(() => {
-    checkGrid();
-  });
-
-  function checkGrid(){
-    var pressedDown = false;
-    $(document).on('mousedown', function(){
-      pressedDown = true;     // When mouse goes down, set pressedDown to true
-    })  
-    .mouseup(function() {
-      pressedDown = false;    // When mouse goes up, set pressedDown to false
-    });
-    
-    $('.grid').mousedown(function(){
-      $(this).css({'backgroundImage': 'url(/data/SVG/Asset-0.svg)'});
-    });
-
-    $('.grid').mouseup(function(){
-      pressedDown = false;
-    });
-    
-    $('.grid').mouseover(function(){
-      if(pressedDown) {
-        $(this).css({'backgroundImage': 'url(/data/SVG/Asset-0.svg)'});
-      }
-    });
-  }
-
-  function addGrid(){
-    let container = document.createElement('div');  
-    let idVal = document.createAttribute('id');
-    idVal.value = 'container';
-    container.setAttributeNode(idVal);     
-    document.body.appendChild(container);
-    for(let i = 0; i < 10; i++) {
-      for(let j = 0; j < 10; j++) {
-        let div = document.createElement('button');
-        let attr = document.createAttribute('class');
-        attr.value = 'grid';
-        div.setAttributeNode(attr);     
-        container.appendChild(div);
-      }
-    }
-    checkGrid()
-  }
-
-  function clearGrid() {
-    let ele = document.getElementsByClassName('grid');
-    for(let i = 0; i < ele.length; i++) {
-      ele[i].style.backgroundImage = ""; 
-    }
+  function createCanvas(){
+    new p5(s1);
   }
 
   return (
@@ -64,19 +18,21 @@ const Index = ({ page}) => {
     >
       <div className="container">
         <h1>{page.data.title}</h1>
-
+        <div className="var">
+          <label htmlFor="width">width:</label>
+          <input type="number" id="width" name="width" min="500"/>
+          <label htmlFor="height">height:</label>
+          <input type="number" id="height" name="height" min="500"/>
+        </div>
+        <button onClick={createCanvas}>+</button>
         <div className="images">
           {page.data.images.map((item, i) =>{
             return(
-              <PrismicNextImage className="img" alt={"type-tool"} key={`img${i}`} field={item.image}/>
+              <PrismicNextImage className="img" alt={item.image.alt} key={`img${i}`} field={item.image}/>
             )
           })}
         </div>
-        <div className="menu">
-          <div onClick={addGrid}>Add</div>
-          <div onClick={clearGrid}>Clear</div>
-        </div>
-        <br/>
+        {/* <div className="output"></div> */}
       </div>
     </Layout>
   );
