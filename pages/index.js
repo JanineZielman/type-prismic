@@ -30,10 +30,6 @@ const Index = ({ page}) => {
       }
     });
 
-  })
-
-  useEffect(() => {
-
     for(let i = 0; i < 10; i++) {
       for(let j = 0; j < 10; j++) {
         let div = document.createElement('button');
@@ -43,7 +39,9 @@ const Index = ({ page}) => {
         document.getElementById('container').appendChild(div);
       }
     }
-  }, [])
+
+  })
+
 
   function clearGrid() {
     let ele = document.getElementsByClassName('grid');
