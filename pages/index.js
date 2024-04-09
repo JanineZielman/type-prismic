@@ -31,7 +31,6 @@ const Index = ({ page}) => {
     
     $('.grid').mousedown(function(){
       $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
-      
     });
 
     $('.grid').mouseup(function(){
@@ -47,10 +46,10 @@ const Index = ({ page}) => {
 
   function addGrid(){
     let container = document.createElement('div');  
-    let idVal = document.createAttribute('id');
+    let idVal = document.createAttribute('class');
     idVal.value = 'container';
     container.setAttributeNode(idVal);     
-    document.body.appendChild(container);
+    document.getElementById('wrapper').appendChild(container);
     for(let i = 0; i < 10; i++) {
       for(let j = 0; j < 10; j++) {
         let div = document.createElement('button');
@@ -70,10 +69,39 @@ const Index = ({ page}) => {
     }
   }
 
+  function addLayer(){
+    let layer = document.createElement('div');  
+    let idLayer = document.createAttribute('class');
+    idLayer.value = 'layer';
+    layer.setAttributeNode(idLayer);
+    
+    for(let i = 0; i < document.getElementsByClassName('container').length; i++) {
+      let container2 = document.createElement('div');  
+      let idVal = document.createAttribute('class');
+      idVal.value = 'container2';
+      container2.setAttributeNode(idVal);  
+      layer.appendChild(container2);
+
+      for(let i = 0; i < 10; i++) {
+        for(let j = 0; j < 10; j++) {
+          let div = document.createElement('button');
+          let attr = document.createAttribute('class');
+          attr.value = 'grid';
+          div.setAttributeNode(attr);     
+          container2.appendChild(div);
+        }
+      }
+    }
+
+    document.getElementById('wrapper').appendChild(layer);
+      
+    checkGrid()
+  }
+
   return (
     <Layout
     >
-      <div className="container">
+      
         <h1>{page.data.title}</h1>
 
         <div className="images" id="images">
@@ -84,11 +112,13 @@ const Index = ({ page}) => {
           })}
         </div>
         <div className="menu">
-          <div onClick={addGrid}>Add</div>
-          <div onClick={clearGrid}>Clear</div>
+          <div onClick={addGrid}>Add grid</div>
+          <div onClick={addLayer}>Add Layer</div>
+          <div onClick={clearGrid}>Clear all</div>
         </div>
         <br/>
-      </div>
+        <div id="wrapper">
+        </div>
     </Layout>
   );
 };
