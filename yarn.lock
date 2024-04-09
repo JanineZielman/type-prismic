@@ -2178,6 +2178,11 @@ component-type@^1.2.1:
   resolved "https://registry.yarnpkg.com/component-type/-/component-type-1.2.2.tgz#4458ecc0c1871efc6288bfaff0cbdab08141d079"
   integrity sha512-99VUHREHiN5cLeHm3YLq312p6v+HUEcwtLCAtelvUDI6+SH5g5Cr85oNR2S1o6ywzL0ykMbuwLzM2ANocjEOIA==
 
+computed-styles@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/computed-styles/-/computed-styles-1.1.2.tgz#a7e732ba145149399ade70c2f94b353dd8ad629d"
+  integrity sha512-CGbti1B791SKg6goVX0cSI++hFBSzY9+7+lhX8lqXDI5FHexluglI1cPtvIifS4mEcWxPJ+HKYPr2t6nqz7PxA==
+
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
@@ -3126,6 +3131,11 @@ file-entry-cache@^6.0.1:
   integrity sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==
   dependencies:
     flat-cache "^3.0.4"
+
+file-saver@^1.3.3:
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-1.3.8.tgz#e68a30c7cb044e2fb362b428469feb291c2e09d8"
+  integrity sha512-spKHSBQIxxS81N/O21WmuXA2F6wppUCsutpzenOeZzOCCJ5gEfcbqJP983IrpLXzYmXnMUa6J03SubcNPdKrlg==
 
 filelist@^1.0.4:
   version "1.0.4"
@@ -6120,6 +6130,14 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+svgsaver@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/svgsaver/-/svgsaver-0.9.0.tgz#93d5dbb3f840953b8df0a14a942f4cc8d552335e"
+  integrity sha512-m94bg62CjuKyhcyJV50ljIPDo5FxEwmdOn60IvHEPlGKhC8gNMnyxbjlYmGi9QW9rIi93DjvfjBuafFfn3+m0w==
+  dependencies:
+    computed-styles "^1.1.2"
+    file-saver "^1.3.3"
 
 tapable@^2.2.0:
   version "2.2.1"

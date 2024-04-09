@@ -25,7 +25,8 @@
     "next": "^13.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.62.0"
+    "sass": "^1.62.0",
+    "svgsaver": "^0.9.0"
   },
   "devDependencies": {
     "@prismicio/types": "^0.2.4",
