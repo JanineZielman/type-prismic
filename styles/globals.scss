@@ -50,6 +50,8 @@ h1{
 
 .container {
   width: 500px;
+  height: 500px;
+  overflow: hidden;
   font-size: 0;
 }
 
@@ -64,6 +66,8 @@ h1{
   .container2{
     width: 500px;
     font-size: 0;
+    height: 500px;
+    overflow: hidden;
   }
 }
 
@@ -76,6 +80,18 @@ button.grid {
   background-color: transparent;
   position: relative;
   background-size: cover;
+}
+
+.hide button.grid{
+  border: none;
+}
+
+#hide.hide:after{
+  content: 'Show Grid';
+}
+
+#hide:after{
+  content: 'Hide Grid';
 }
 
 .menu{

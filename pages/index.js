@@ -63,12 +63,14 @@ const Index = ({ page}) => {
     idVal.value = 'container';
     container.setAttributeNode(idVal);     
     document.getElementById('wrapper').appendChild(container);
-    for(let i = 0; i < 10; i++) {
-      for(let j = 0; j < 10; j++) {
+    for(let i = 0; i < 50; i++) {
+      for(let j = 0; j < 50; j++) {
         let div = document.createElement('button');
         let attr = document.createAttribute('class');
         attr.value = 'grid';
-        div.setAttributeNode(attr);     
+        div.setAttributeNode(attr);
+        div.style.width =  document.getElementById('slider-width').value + 'px'; 
+        div.style.height =  document.getElementById('slider-height').value + 'px';
         container.appendChild(div);
       }
     }
@@ -95,12 +97,14 @@ const Index = ({ page}) => {
       container2.setAttributeNode(idVal);  
       layer.appendChild(container2);
 
-      for(let i = 0; i < 10; i++) {
-        for(let j = 0; j < 10; j++) {
+      for(let i = 0; i < 50; i++) {
+        for(let j = 0; j < 50; j++) {
           let div = document.createElement('button');
           let attr = document.createAttribute('class');
           attr.value = 'grid';
-          div.setAttributeNode(attr);     
+          div.setAttributeNode(attr);
+          div.style.width =  document.getElementById('slider-width').value + 'px'; 
+          div.style.height =  document.getElementById('slider-height').value + 'px';
           container2.appendChild(div);
         }
       }
@@ -110,6 +114,12 @@ const Index = ({ page}) => {
       
     checkGrid()
   }
+
+  function hideGrid(){
+    document.getElementById('wrapper').classList.toggle('hide');
+    document.getElementById('hide').classList.toggle('hide');
+  }
+
 
   return (
     <Layout
@@ -127,6 +137,11 @@ const Index = ({ page}) => {
         <div className="menu">
           <div onClick={addGrid}>Add grid</div>
           <div onClick={addLayer}>Add Layer</div>
+          <div className="hide-grid" id="hide" onClick={hideGrid}></div>
+          <div class="slidecontainer">
+            <input type="range" min="0" max="100" id="slider-width"/>
+            <input type="range" min="0" max="100" id="slider-height"/>
+          </div>
           <div id="eraser">Eraser</div>
           <div onClick={clearGrid}>Clear all</div>
         </div>
