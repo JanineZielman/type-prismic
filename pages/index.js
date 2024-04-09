@@ -1,17 +1,16 @@
-import Head from "next/head";
-import * as prismicH from "@prismicio/helpers";
-
 import { createClient } from "../prismicio";
 import { Layout } from "../components/Layout";
-import Link from "next/link";
-import { PrismicRichText } from "@prismicio/react";
 import { PrismicNextImage } from "@prismicio/next";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 
 const Index = ({ page}) => {
 
   useEffect(() => {
+    checkGrid();
+  });
+
+  function checkGrid(){
     var pressedDown = false;
     $(document).on('mousedown', function(){
       pressedDown = true;     // When mouse goes down, set pressedDown to true
@@ -23,25 +22,35 @@ const Index = ({ page}) => {
     $('.grid').mousedown(function(){
       $(this).css({'backgroundImage': 'url(/data/SVG/Asset-0.svg)'});
     });
+
+    $('.grid').mouseup(function(){
+      pressedDown = false;
+    });
     
     $('.grid').mouseover(function(){
       if(pressedDown) {
         $(this).css({'backgroundImage': 'url(/data/SVG/Asset-0.svg)'});
       }
     });
+  }
 
+  function addGrid(){
+    let container = document.createElement('div');  
+    let idVal = document.createAttribute('id');
+    idVal.value = 'container';
+    container.setAttributeNode(idVal);     
+    document.body.appendChild(container);
     for(let i = 0; i < 10; i++) {
       for(let j = 0; j < 10; j++) {
         let div = document.createElement('button');
         let attr = document.createAttribute('class');
         attr.value = 'grid';
         div.setAttributeNode(attr);     
-        document.getElementById('container').appendChild(div);
+        container.appendChild(div);
       }
     }
-
-  })
-
+    checkGrid()
+  }
 
   function clearGrid() {
     let ele = document.getElementsByClassName('grid');
@@ -63,12 +72,9 @@ const Index = ({ page}) => {
             )
           })}
         </div>
-        <div onClick={clearGrid}>Add</div>
+        <div onClick={addGrid}>Add</div>
         <div onClick={clearGrid}>Clear</div>
         <br/>
-        <br/>
-        <div id="container"></div>
-
       </div>
     </Layout>
   );
