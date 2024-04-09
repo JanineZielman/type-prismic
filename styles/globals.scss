@@ -90,6 +90,14 @@ button.grid {
   position: relative;
 }
 
+.menu{
+  display: flex;
+  div{
+    padding: 10px;
+    margin-right: 10px;
+  }
+}
+
 
 @media print{
   button, input, label, h1{
@@ -103,8 +111,11 @@ button.grid {
     display: inline-block;
     border: none;
   }
-  @page {
-    size: 594mm 420mm ;
-    margin: 0;
+  .menu{
+    display: none;
   }
+  // @page {
+  //   size: 594mm 420mm ;
+  //   margin: 0;
+  // }
 }

@@ -72,8 +72,10 @@ const Index = ({ page}) => {
             )
           })}
         </div>
-        <div onClick={addGrid}>Add</div>
-        <div onClick={clearGrid}>Clear</div>
+        <div className="menu">
+          <div onClick={addGrid}>Add</div>
+          <div onClick={clearGrid}>Clear</div>
+        </div>
         <br/>
       </div>
     </Layout>
