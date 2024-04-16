@@ -120,46 +120,46 @@ const Index = ({ page}) => {
     document.getElementById('hide').classList.toggle('hide');
   }
 
-
-
-  function captureCanvas(){
-    html2canvas(main, { allowTaint: true, useCORS:true, foreignObjectRendering:true, backgroundColor: null }).then(function (canvas) {
-      document.body.appendChild(canvas);
-    });
+  function printPDF(){
+    window.print();
   }
 
-  
-
+  function toggleMenu() {
+    document.getElementById("fixed").classList.toggle("activeToggle");
+  }
 
   return (
     <Layout
     >
       <div id="main">
-        <h1>{page.data.title}</h1>
-
-        <div className="images" id="images">
-          {page.data.images.map((item, i) =>{
-            return(
-              <PrismicNextImage className={`img ${i == 0 && 'active'}`} alt={""} key={`img${i}`} field={item.image}/>
-            )
-          })}
-        </div>
-        <div className="menu">
-          <div onClick={addGrid}>Add grid</div>
-          <div onClick={addLayer}>Add Layer</div>
-          <div className="hide-grid" id="hide" onClick={hideGrid}></div>
-          <div className="slidecontainer">
-            <input type="range" min="0" max="100" id="slider-width"/>
-            <input type="range" min="0" max="100" id="slider-height"/>
+        <div className="fixed activeToggle" id="fixed">
+          <div id="toggle" onClick={toggleMenu}></div>
+          <div className="menu">
+            <div onClick={addGrid}>Add grid</div>
+            <div onClick={addLayer}>Add Layer</div>
+            <div className="hide-grid" id="hide" onClick={hideGrid}></div>
+            <div className="slidecontainer">
+              <input type="range" min="0" max="100" id="slider-width"/>
+              <input type="range" min="0" max="100" id="slider-height"/>
+            </div>
+            <div id="eraser">Eraser</div>
+            <div onClick={clearGrid}>Clear all</div>
           </div>
-          <div id="eraser">Eraser</div>
-          <div onClick={clearGrid}>Clear all</div>
+          <div className="images" id="images">
+            {page.data.images.map((item, i) =>{
+              return(
+                <PrismicNextImage className={`img ${i == 0 && 'active'}`} alt={""} key={`img${i}`} field={item.image}/>
+              )
+            })}
+          </div>
+          <div className="download" onClick={printPDF}>download</div>
+          <h1>© {page.data.title}</h1>
         </div>
-        <br/>
+
         <div id="wrapper">
         </div>
 
-        <div onClick={captureCanvas}>download</div>
+        
       </div>
     </Layout>
   );
