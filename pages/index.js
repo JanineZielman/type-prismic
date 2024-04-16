@@ -2,7 +2,7 @@ import { createClient } from "../prismicio";
 import { Layout } from "../components/Layout";
 import { PrismicNextImage } from "@prismicio/next";
 import { useEffect, useRef } from "react";
-
+import html2canvas from 'html2canvas';
 
 const Index = ({ page}) => {
 
@@ -121,16 +121,26 @@ const Index = ({ page}) => {
   }
 
 
+
+  function captureCanvas(){
+    html2canvas(main, { allowTaint: true, useCORS:true, foreignObjectRendering:true, backgroundColor: null }).then(function (canvas) {
+      document.body.appendChild(canvas);
+    });
+  }
+
+  
+
+
   return (
     <Layout
     >
-      
+      <div id="main">
         <h1>{page.data.title}</h1>
 
         <div className="images" id="images">
           {page.data.images.map((item, i) =>{
             return(
-              <PrismicNextImage className={`img ${i == 0 && 'active'}`} alt={"type-tool"} key={`img${i}`} field={item.image}/>
+              <PrismicNextImage className={`img ${i == 0 && 'active'}`} alt={""} key={`img${i}`} field={item.image}/>
             )
           })}
         </div>
@@ -138,7 +148,7 @@ const Index = ({ page}) => {
           <div onClick={addGrid}>Add grid</div>
           <div onClick={addLayer}>Add Layer</div>
           <div className="hide-grid" id="hide" onClick={hideGrid}></div>
-          <div class="slidecontainer">
+          <div className="slidecontainer">
             <input type="range" min="0" max="100" id="slider-width"/>
             <input type="range" min="0" max="100" id="slider-height"/>
           </div>
@@ -148,6 +158,9 @@ const Index = ({ page}) => {
         <br/>
         <div id="wrapper">
         </div>
+
+        <div onClick={captureCanvas}>download</div>
+      </div>
     </Layout>
   );
 };

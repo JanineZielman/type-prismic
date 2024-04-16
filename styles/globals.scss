@@ -80,7 +80,13 @@ button.grid {
   background-color: transparent;
   position: relative;
   background-size: cover;
+  // animation: mymove 5s infinite linear;
 }
+
+// @keyframes mymove {
+//   from {transform: rotate(0);}
+//   to {transform: rotate(360deg)}
+// }
 
 .hide button.grid{
   border: none;
@@ -122,4 +128,51 @@ button.grid {
   .menu{
     display: none;
   }
+}
+
+.animate-page{
+  #drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    width: 480px;
+    margin: 50px auto;
+    padding: 20px;
+  }
+  #drop-area.highlight {
+    border-color: purple;
+  }
+  p {
+    margin-top: 0;
+  }
+  .my-form {
+    margin-bottom: 10px;
+  }
+  #gallery {
+    margin-top: 10px;
+  }
+  #gallery img {
+    width: 150px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  .button {
+    display: inline-block;
+    padding: 10px;
+    background: #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  .button:hover {
+    background: #ddd;
+  }
+  #fileElem {
+    display: none;
+  }
+}
+
+#download{
+  width: 500px;
+  height: 500px;
 }
