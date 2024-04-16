@@ -5,7 +5,6 @@ export default function Document() {
     <Html>
       <Head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" async></script>
-        <script src="https://sharonchoong.github.io/svg-exportJS/svg-export.min.js" async></script>
       </Head>
       <body className="overflow-x-hidden antialiased">
         <Main />

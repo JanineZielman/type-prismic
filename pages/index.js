@@ -1,8 +1,7 @@
 import { createClient } from "../prismicio";
 import { Layout } from "../components/Layout";
 import { PrismicNextImage } from "@prismicio/next";
-import { useEffect, useRef } from "react";
-import html2canvas from 'html2canvas';
+import { useEffect, useState } from "react";
 
 const Index = ({ page}) => {
 
@@ -37,7 +36,11 @@ const Index = ({ page}) => {
       if (document.getElementById('eraser').className == 'active'){
         $(this).css({'backgroundImage': ``});
       } else {
-        $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+        if (document.getElementById('custom').className.includes('active')){
+          $(this).html('<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg>');
+        } else {
+          $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+        }
       }
      
     });
@@ -51,7 +54,11 @@ const Index = ({ page}) => {
         if (document.getElementById('eraser').className == 'active'){
           $(this).css({'backgroundImage': ``});
         } else {
-          $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+          if (document.getElementById('custom').className.includes('active')){
+            $(this).html('<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg>');
+          } else {
+            $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+          }
         }
       }
     });
@@ -128,6 +135,16 @@ const Index = ({ page}) => {
     document.getElementById("fixed").classList.toggle("activeToggle");
   }
 
+  useEffect(() => {
+    setInterval(() => {
+      for(let j = 0; j < document.getElementsByClassName('ani').length; j++) {
+        document.getElementsByClassName('ani')[j].setAttribute("fill", '#' + Math.floor(Math.random()*16777215).toString(16))
+        document.getElementsByClassName('ani')[j].setAttribute("rx", Math.floor(Math.random()* 25))
+        document.getElementsByClassName('ani')[j].setAttribute("ry", Math.floor(Math.random()* 25))
+      }
+    }, 100);
+  }, [])
+
   return (
     <Layout
     >
@@ -151,6 +168,9 @@ const Index = ({ page}) => {
                 <PrismicNextImage className={`img ${i == 0 && 'active'}`} alt={""} key={`img${i}`} field={item.image}/>
               )
             })}
+            <div className="img" id="custom">
+              custom
+            </div>
           </div>
           <div className="download" onClick={printPDF}>download</div>
           <h1>© {page.data.title}</h1>
