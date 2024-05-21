@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 
 const Index = ({ page}) => {
 
+  const [animate, setAnimate] = useState(false);
+
   useEffect(() => {
     checkGrid();
   });
@@ -183,7 +185,35 @@ const Index = ({ page}) => {
     }
   }
 
+
+  function randomAnimate(){
+    document.getElementById('start_animate').classList.toggle('activeOption');
+    document.getElementById('stop_random').classList.remove('activeOption');
+    if (animate == true){
+      setAnimate(false);
+    } else {    
+      setAnimate(true);
+    }
+  }
+
+  let randomInterval;
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (animate == true){
+        randomInterval = setInterval(randomSize(), 100);
+      } else {    
+        randomInterval = null;
+        clearInterval(randomInterval);
+      }
+    }, 100)
+    return () => clearInterval(intervalId);
+  }, [animate])
+
+
   function randomStop(event){
+    setAnimate(false);
+    document.getElementById('start_animate').classList.remove('activeOption');
     event.target.classList.add('activeOption');
     document.getElementById('start_random').classList.remove('activeOption');
     for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
@@ -216,8 +246,9 @@ const Index = ({ page}) => {
               </div>
               random
               <div className="flex">
-                <div className="option" id="start_random" onClick={randomStart}>Start</div>
-                <div className="option" id="stop_random" onClick={randomStop}>Stop</div>
+                <div className="option" id="start_random" onClick={randomStart}>Yes</div>
+                <div className="option" id="start_animate" onClick={randomAnimate}>Animate</div>
+                <div className="option" id="stop_random" onClick={randomStop}>No</div>
               </div>
             </div>
             
