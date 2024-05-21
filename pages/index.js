@@ -145,6 +145,53 @@ const Index = ({ page}) => {
     }, 100);
   }, [])
 
+  function rotateStart(event){
+    event.target.classList.toggle('activeOption');
+    document.getElementById('stop_rotate').classList.remove('activeOption');
+    // document.getElementById('pause_rotate').classList.remove('activeOption');
+    for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
+      document.getElementsByClassName('grid')[j].classList.add('rotate');
+    }
+  }
+
+  function rotateStop(event){
+    event.target.classList.add('activeOption');
+    document.getElementById('start_rotate').classList.remove('activeOption');
+    // document.getElementById('pause_rotate').classList.remove('activeOption');
+    for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
+      document.getElementsByClassName('grid')[j].classList.remove('rotate');
+    }
+  }
+
+  function rotatePause(event){
+    event.target.classList.toggle('activeOption');
+    for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
+      document.getElementsByClassName('grid')[j].classList.toggle('pause');
+    }
+  }
+
+  function randomStart(event){
+    event.target.classList.add('activeOption');
+    document.getElementById('stop_random').classList.remove('activeOption');
+    randomSize();
+  }
+
+
+  function randomSize(){
+    for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
+      let random = Math.floor(Math.random() * 100) + '%';
+      document.getElementsByClassName('grid')[j].style.backgroundSize = random;
+    }
+  }
+
+  function randomStop(event){
+    event.target.classList.add('activeOption');
+    document.getElementById('start_random').classList.remove('activeOption');
+    for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
+      document.getElementsByClassName('grid')[j].style.backgroundSize = 'cover';
+    }
+  }
+
   return (
     <Layout
     >
@@ -152,15 +199,33 @@ const Index = ({ page}) => {
         <div className="fixed activeToggle" id="fixed">
           <div id="toggle" onClick={toggleMenu}></div>
           <div className="menu">
-            <div onClick={addGrid}>Add grid</div>
-            <div onClick={addLayer}>Add Layer</div>
-            <div className="hide-grid" id="hide" onClick={hideGrid}></div>
-            <div className="slidecontainer">
+            <div className="flex">
+              <div className="option" onClick={addGrid}>Add grid</div>
+              <div className="option" onClick={addLayer}>Add Layer</div>
+            </div>
+            <div className="slidecontainer option">
               <input type="range" min="0" max="100" id="slider-width"/>
               <input type="range" min="0" max="100" id="slider-height"/>
             </div>
-            <div id="eraser">Eraser</div>
-            <div onClick={clearGrid}>Clear all</div>
+            <div className="hide-grid option" id="hide" onClick={hideGrid}></div>
+            <div className="animations">
+              rotate
+              <div className="flex">
+                <div className="option" id="start_rotate" onClick={rotateStart}>Start</div>
+                <div className="option" id="pause_rotate" onClick={rotatePause}>Pause</div>
+                <div className="option" id="stop_rotate" onClick={rotateStop}>Stop</div>
+              </div>
+              random
+              <div className="flex">
+                <div className="option" id="start_random" onClick={randomStart}>Start</div>
+                <div className="option" id="stop_random" onClick={randomStop}>Stop</div>
+              </div>
+            </div>
+            
+            <div className="flex small-flex">
+              <div className="option" id="eraser">Eraser</div>
+              <div className="option" onClick={clearGrid}>Clear all</div>
+            </div>
           </div>
           <div className="images" id="images">
             {page.data.images.map((item, i) =>{
@@ -172,12 +237,14 @@ const Index = ({ page}) => {
               custom
             </div>
           </div>
-          <div className="download" onClick={printPDF}>download</div>
+          <div className="download option" onClick={printPDF}>download</div>
           <h1>© {page.data.title}</h1>
         </div>
 
         <div id="wrapper">
         </div>
+
+      
 
         
       </div>
