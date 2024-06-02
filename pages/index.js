@@ -10,6 +10,10 @@ const Index = ({ page}) => {
   useEffect(() => {
     checkGrid();
   });
+  
+  function toggleEraser(){
+    document.getElementById('eraser').classList.toggle("activeEraser");
+  }
 
   function checkGrid(){
     var header = document.getElementById("images");
@@ -22,10 +26,6 @@ const Index = ({ page}) => {
       });
     }
 
-    document.getElementById('eraser').addEventListener("click", function() {
-      document.getElementById('eraser').classList.toggle("active");
-    });
-
     var pressedDown = false;
     $(document).on('mousedown', function(){
       pressedDown = true;     // When mouse goes down, set pressedDown to true
@@ -35,7 +35,7 @@ const Index = ({ page}) => {
     });
     
     $('.grid').mousedown(function(){
-      if (document.getElementById('eraser').className == 'active'){
+      if (document.getElementById('eraser')?.classList.contains('activeEraser')){
         $(this).css({'backgroundImage': ``});
       } else {
         if (document.getElementById('custom').className.includes('active')){
@@ -53,7 +53,7 @@ const Index = ({ page}) => {
     
     $('.grid').mouseover(function(){
       if(pressedDown) {
-        if (document.getElementById('eraser').className == 'active'){
+        if (document.getElementById('eraser')?.classList.contains('activeEraser')){
           $(this).css({'backgroundImage': ``});
         } else {
           if (document.getElementById('custom').className.includes('active')){
@@ -253,7 +253,7 @@ const Index = ({ page}) => {
             </div>
             
             <div className="flex small-flex">
-              <div className="option" id="eraser">Eraser</div>
+              <div className="option" id="eraser" onClick={toggleEraser}>Eraser</div>
               <div className="option" onClick={clearGrid}>Clear all</div>
             </div>
           </div>
