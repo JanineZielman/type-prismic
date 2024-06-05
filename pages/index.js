@@ -6,10 +6,13 @@ import { useEffect, useState } from "react";
 const Index = ({ page}) => {
 
   const [animate, setAnimate] = useState(false);
+  const [sw, setSw] = useState(50);
 
   useEffect(() => {
     checkGrid();
+    setSw(document.getElementById('slider-width').value)
   });
+  
   
   function toggleEraser(){
     document.getElementById('eraser').classList.toggle("activeEraser");
@@ -221,6 +224,22 @@ const Index = ({ page}) => {
     }
   }
 
+  function smoothToggle(){
+    document.getElementById('smooth').classList.toggle('activeOption');
+    document.getElementById('main').classList.toggle('smooth');
+  }
+
+  function cursorToggle(){
+    document.getElementById('cursor').classList.toggle('activeOption');
+    document.getElementById('main').classList.toggle('no-cursor');
+    
+  }
+
+  function hoverToggle(){
+    document.getElementById('hover').classList.toggle('activeOption');
+    document.getElementById('main').classList.toggle('hover');
+  }
+
   return (
     <Layout
     >
@@ -233,8 +252,9 @@ const Index = ({ page}) => {
               <div className="option" onClick={addLayer}>Add Layer</div>
             </div>
             <div className="slidecontainer option">
-              <input type="range" min="0" max="100" id="slider-width"/>
-              <input type="range" min="0" max="100" id="slider-height"/>
+              
+              <input type="range" min="1" max="100" id="slider-width"/><span>{sw}</span>
+              <input type="range" min="1" max="100" id="slider-height"/>
             </div>
             <div className="hide-grid option" id="hide" onClick={hideGrid}></div>
             <div className="animations">
@@ -249,6 +269,12 @@ const Index = ({ page}) => {
                 <div className="option" id="start_random" onClick={randomStart}>Yes</div>
                 <div className="option" id="start_animate" onClick={randomAnimate}>Animate</div>
                 <div className="option" id="stop_random" onClick={randomStop}>No</div>
+              </div>
+              other
+              <div className="flex">
+                <div className="option" id="cursor" onClick={cursorToggle}>Cursor</div>
+                <div className="option" id="smooth" onClick={smoothToggle}>Smooth</div>
+                <div className="option" id="hover" onClick={hoverToggle}>Hover</div>
               </div>
             </div>
             

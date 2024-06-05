@@ -131,6 +131,25 @@ button.grid {
   transform-origin: center center;
 }
 
+.smooth{
+  button.grid{
+    transition: all 0.5s ease;  
+  }
+}
+
+.hover{
+  button.grid:hover{
+    transition: all 0.5s ease;  
+    transform: rotate(360deg);
+  }
+}
+
+.no-cursor{
+  button.grid{
+    cursor: none!important;
+  }
+}
+
 button.grid.rotate{
   animation-play-state: running;
   animation: mymove 1s infinite linear;
