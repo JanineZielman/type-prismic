@@ -6,11 +6,9 @@ import { useEffect, useState } from "react";
 const Index = ({ page}) => {
 
   const [animate, setAnimate] = useState(false);
-  const [sw, setSw] = useState(50);
 
   useEffect(() => {
     checkGrid();
-    setSw(document.getElementById('slider-width').value)
   });
   
   
@@ -240,6 +238,11 @@ const Index = ({ page}) => {
     document.getElementById('main').classList.toggle('hover');
   }
 
+  function updateSlider(){
+    document.getElementById('sw').innerText = document.getElementById('slider-width').value
+    document.getElementById('sh').innerText = document.getElementById('slider-height').value
+  }
+
   return (
     <Layout
     >
@@ -253,8 +256,8 @@ const Index = ({ page}) => {
             </div>
             <div className="slidecontainer option">
               
-              <input type="range" min="1" max="100" id="slider-width"/><span>{sw}</span>
-              <input type="range" min="1" max="100" id="slider-height"/>
+              <input type="range" min="0" max="100" id="slider-width" onChange={updateSlider}/><span className="r-val" id="sw">50</span>
+              <input type="range" min="0" max="100" id="slider-height" onChange={updateSlider}/><span className="r-val" id="sh">50</span>
             </div>
             <div className="hide-grid option" id="hide" onClick={hideGrid}></div>
             <div className="animations">
