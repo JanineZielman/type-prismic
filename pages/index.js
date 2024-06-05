@@ -73,14 +73,14 @@ const Index = ({ page}) => {
     idVal.value = 'container';
     container.setAttributeNode(idVal);     
     document.getElementById('wrapper').appendChild(container);
-    for(let i = 0; i < 50; i++) {
-      for(let j = 0; j < 50; j++) {
+    for(let i = 0; i < (500/document.getElementById('slider-width').value); i++) {
+      for(let j = 0; j < (500/document.getElementById('slider-height').value); j++) {
         let div = document.createElement('button');
         let attr = document.createAttribute('class');
         attr.value = 'grid';
         div.setAttributeNode(attr);
-        div.style.width =  document.getElementById('slider-width').value + 'px'; 
-        div.style.height =  document.getElementById('slider-height').value + 'px';
+        div.style.width =  500 / document.getElementById('slider-width').value + 'px'; 
+        div.style.height =  500 /document.getElementById('slider-height').value + 'px';
         container.appendChild(div);
       }
     }
@@ -107,14 +107,14 @@ const Index = ({ page}) => {
       container2.setAttributeNode(idVal);  
       layer.appendChild(container2);
 
-      for(let i = 0; i < 50; i++) {
-        for(let j = 0; j < 50; j++) {
+      for(let i = 0; i < (500/document.getElementById('slider-width').value); i++) {
+        for(let j = 0; j < (500/document.getElementById('slider-height').value); j++) {
           let div = document.createElement('button');
           let attr = document.createAttribute('class');
           attr.value = 'grid';
           div.setAttributeNode(attr);
-          div.style.width =  document.getElementById('slider-width').value + 'px'; 
-          div.style.height =  document.getElementById('slider-height').value + 'px';
+          div.style.width =   500 / document.getElementById('slider-width').value + 'px'; 
+          div.style.height =   500 / document.getElementById('slider-height').value + 'px';
           container2.appendChild(div);
         }
       }
@@ -256,8 +256,8 @@ const Index = ({ page}) => {
             </div>
             <div className="slidecontainer option">
               
-              <input type="range" min="0" max="100" id="slider-width" onChange={updateSlider}/><span className="r-val" id="sw">50</span>
-              <input type="range" min="0" max="100" id="slider-height" onChange={updateSlider}/><span className="r-val" id="sh">50</span>
+              <input type="range" min="0" max="20" step='1' id="slider-width" onChange={updateSlider}/><span className="r-val" id="sw">10</span>
+              <input type="range" min="0" max="20" step='1' id="slider-height" onChange={updateSlider}/><span className="r-val" id="sh">10</span>
             </div>
             <div className="hide-grid option" id="hide" onClick={hideGrid}></div>
             <div className="animations">
