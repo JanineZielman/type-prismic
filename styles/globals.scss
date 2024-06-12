@@ -249,6 +249,11 @@ button.grid.rotate{
   margin-bottom: 10px;
 }
 
+@page{
+  margin: 0;
+  size: 100px 100px;
+}
+
 
 @media print{
   .images, .download, .fixed{

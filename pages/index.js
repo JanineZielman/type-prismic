@@ -131,6 +131,15 @@ const Index = ({ page}) => {
   }
 
   function printPDF(){
+    // console.log(document.getElementsByClassName('container').length)
+    // let amount = document.getElementsByClassName('container').length
+    // let width = amount * 500;
+    // if (width > document.body.clientWidth){
+    //   amount = 1;
+    // }
+    // document.head.innerHTML += `<style>
+    // @page{size: ${width}px 500px;}
+    // </style>`;
     window.print();
   }
 
@@ -181,7 +190,7 @@ const Index = ({ page}) => {
 
   function randomSize(){
     for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
-      let random = Math.floor(Math.random() * 100) + '%';
+      let random = Math.floor(Math.random() * 140 + 10) + '%';
       document.getElementsByClassName('grid')[j].style.backgroundSize = random;
     }
   }
