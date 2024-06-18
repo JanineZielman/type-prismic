@@ -131,15 +131,17 @@ const Index = ({ page}) => {
   }
 
   function printPDF(){
-    // console.log(document.getElementsByClassName('container').length)
-    // let amount = document.getElementsByClassName('container').length
-    // let width = amount * 500;
-    // if (width > document.body.clientWidth){
-    //   amount = 1;
-    // }
-    // document.head.innerHTML += `<style>
-    // @page{size: ${width}px 500px;}
-    // </style>`;
+    let amount = document.getElementsByClassName('container').length
+    let fit = Math.round(document.body.clientWidth / 500)
+    let width = fit * 500;
+    let height = Math.ceil(amount/fit) * 500
+    if (fit > amount){
+      width = amount * 500
+      height = 500;
+    }
+    document.head.innerHTML += `<style>
+    @page{size: ${width}px ${height}px;}
+    </style>`;
     window.print();
   }
 
