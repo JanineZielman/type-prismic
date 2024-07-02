@@ -192,7 +192,7 @@ const Index = ({ page}) => {
 
   function randomSize(){
     for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
-      let random = Math.floor(Math.random() * 300 + 99) + '%';
+      let random = Math.floor(Math.random() * 150 + 1) + '%';
       document.getElementsByClassName('grid')[j].style.backgroundSize = random;
     }
   }

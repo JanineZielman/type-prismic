@@ -1,0 +1,19 @@
+.animate{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  .container{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .layer{
+    .container2{
+      width: 100vw;
+      font-size: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+  }
+}

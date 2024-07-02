@@ -1,135 +1,334 @@
 import { createClient } from "../prismicio";
 import { Layout } from "../components/Layout";
 import { PrismicNextImage } from "@prismicio/next";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-const Animate = ({ page}) => {
+const Index = ({ page}) => {
 
-  const [progressBar, setProgressBar] = useState();
-  let uploadProgress = []
+  const [animate, setAnimate] = useState(false);
+  const [sizeW, setSizeW] = useState();
+  const [sizeH, setSizeH] = useState();
 
   useEffect(() => {
-    // Prevent default drag behaviors
-    ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-      document.getElementById("drop-area").addEventListener(eventName, preventDefaults, false)   
-      document.body.addEventListener(eventName, preventDefaults, false)
-    })
-    
-    // Highlight drop area when item is dragged over it
-    ;['dragenter', 'dragover'].forEach(eventName => {
-      document.getElementById("drop-area").addEventListener(eventName, highlight, false)
-    })
-    
-    ;['dragleave', 'drop'].forEach(eventName => {
-      document.getElementById("drop-area").addEventListener(eventName, unhighlight, false)
-    })
-    
-    // Handle dropped files
-    document.getElementById("drop-area").addEventListener('drop', handleDrop, false)
+    checkGrid();
+    setSizeW(document.body.clientWidth);
+    setSizeH(document.body.clientHeight);
+  });
+  
+  
+  function toggleEraser(){
+    document.getElementById('eraser').classList.toggle("activeEraser");
+  }
 
-   
+  function checkGrid(){
+    var header = document.getElementById("images");
+    var btns = header.getElementsByClassName("img");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function() {
+      var current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace(" active", "");
+      this.className += " active";
+      });
+    }
+
+    var pressedDown = false;
+    $(document).on('mousedown', function(){
+      pressedDown = true;     // When mouse goes down, set pressedDown to true
+    })  
+    .mouseup(function() {
+      pressedDown = false;    // When mouse goes up, set pressedDown to false
+    });
     
-  })
-  
-  
-  function preventDefaults (e) {
-    e.preventDefault()
-    e.stopPropagation()
+    $('.grid').mousedown(function(){
+      if (document.getElementById('eraser')?.classList.contains('activeEraser')){
+        $(this).css({'backgroundImage': ``});
+      } else {
+        if (document.getElementById('custom').className.includes('active')){
+          $(this).html('<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg>');
+        } else {
+          $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+        }
+      }
+     
+    });
+
+    $('.grid').mouseup(function(){
+      pressedDown = false;
+    });
+    
+    $('.grid').mouseover(function(){
+      if(pressedDown) {
+        if (document.getElementById('eraser')?.classList.contains('activeEraser')){
+          $(this).css({'backgroundImage': ``});
+        } else {
+          if (document.getElementById('custom').className.includes('active')){
+            $(this).html('<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg>');
+          } else {
+            $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+          }
+        }
+      }
+    });
   }
-  
-  function highlight(e) {
-    document.getElementById("drop-area").classList.add('highlight')
+
+  function addGrid(){
+    $('#wrapper').empty();
+    let container = document.createElement('div');  
+    let idVal = document.createAttribute('class');
+    idVal.value = 'container';
+    container.setAttributeNode(idVal);     
+    document.getElementById('wrapper').appendChild(container);
+    // console.log(document.body.clientWidth/document.getElementById('slider-width').value)
+    for(let i = 0; i < (document.getElementById('slider-width').value); i++) {
+      for(let j = 0; j < (document.getElementById('slider-height').value); j++) {
+        let div = document.createElement('button');
+        let attr = document.createAttribute('class');
+        attr.value = 'grid';
+        div.setAttributeNode(attr);
+        div.style.width =  sizeW / document.getElementById('slider-width').value + 'px'; 
+        div.style.height =  sizeW /document.getElementById('slider-height').value + 'px';
+        container.appendChild(div);
+      }
+    }
+    checkGrid()
   }
-  
-  function unhighlight(e) {
-    document.getElementById("drop-area").classList.remove('active')
-  }
-  
-  function handleDrop(e) {
-    var dt = e.dataTransfer
-    var files = dt.files
-  
-    handleFiles(files)
-  }
-  
-  function initializeProgress(numFiles) {
-    document.getElementById('progress-bar').value = 0
-    uploadProgress = []
-  
-    for(let i = numFiles; i > 0; i--) {
-      uploadProgress.push(0)
+
+  function clearGrid() {
+    let ele = document.getElementsByClassName('grid');
+    for(let i = 0; i < ele.length; i++) {
+      ele[i].style.backgroundImage = ""; 
     }
   }
-  
-  function updateProgress(fileNumber, percent) {
-    uploadProgress[fileNumber] = percent
-    let total = uploadProgress.reduce((tot, curr) => tot + curr, 0) / uploadProgress.length
-    document.getElementById('progress-bar').value = total
+
+  function addLayer(){
+    let layer = document.createElement('div');  
+    let idLayer = document.createAttribute('class');
+    idLayer.value = 'layer';
+    layer.setAttributeNode(idLayer);
+    
+    for(let i = 0; i < document.getElementsByClassName('container').length; i++) {
+      let container2 = document.createElement('div');  
+      let idVal = document.createAttribute('class');
+      idVal.value = 'container2';
+      container2.setAttributeNode(idVal);  
+      layer.appendChild(container2);
+
+      for(let i = 0; i < (document.getElementById('slider-width').value); i++) {
+        for(let j = 0; j < (document.getElementById('slider-height').value); j++) {
+          let div = document.createElement('button');
+          let attr = document.createAttribute('class');
+          attr.value = 'grid';
+          div.setAttributeNode(attr);
+          div.style.width =   sizeW / document.getElementById('slider-width').value + 'px'; 
+          div.style.height =   sizeW / document.getElementById('slider-height').value + 'px';
+          container2.appendChild(div);
+        }
+      }
+    }
+
+    document.getElementById('wrapper').appendChild(layer);
+      
+    checkGrid()
   }
-  
-  function handleFiles(files) {
-    files = [...files]
-    initializeProgress(files.length)
-    files.forEach(uploadFile)
-    files.forEach(previewFile)
+
+  function hideGrid(){
+    document.getElementById('wrapper').classList.toggle('hide');
+    document.getElementById('hide').classList.toggle('hide');
   }
-  
-  function previewFile(file) {
-    let reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onloadend = function() {
-      let img = document.createElement('img')
-      img.src = reader.result
-      document.getElementById('gallery').appendChild(img)
+
+  function printPDF(){
+    let amount = document.getElementsByClassName('container').length
+    let fit = Math.round(document.body.clientWidth / 500)
+    let width = fit * 500;
+    let height = Math.ceil(amount/fit) * 500
+    if (fit > amount){
+      width = amount * 500
+      height = 500;
+    }
+    document.head.innerHTML += `<style>
+    @page{size: ${width}px ${height}px;}
+    </style>`;
+    window.print();
+  }
+
+  function toggleMenu() {
+    document.getElementById("fixed").classList.toggle("activeToggle");
+  }
+
+  useEffect(() => {
+    setInterval(() => {
+      for(let j = 0; j < document.getElementsByClassName('ani').length; j++) {
+        document.getElementsByClassName('ani')[j].setAttribute("fill", '#' + Math.floor(Math.random()*16777215).toString(16))
+        document.getElementsByClassName('ani')[j].setAttribute("rx", Math.floor(Math.random()* 25))
+        document.getElementsByClassName('ani')[j].setAttribute("ry", Math.floor(Math.random()* 25))
+      }
+    }, 500);
+  }, [])
+
+  function rotateStart(event){
+    event.target.classList.add('activeOption');
+    document.getElementById('stop_rotate').classList.remove('activeOption');
+    // document.getElementById('pause_rotate').classList.remove('activeOption');
+    for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
+      document.getElementsByClassName('grid')[j].classList.add('rotate');
     }
   }
-  
-  function uploadFile(file, i) {
-    var url = 'https://api.cloudinary.com/v1_1/joezimim007/image/upload'
-    var xhr = new XMLHttpRequest()
-    var formData = new FormData()
-    xhr.open('POST', url, true)
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
-  
-    // Update progress (can be used to show progress indicator)
-    xhr.upload.addEventListener("progress", function(e) {
-      updateProgress(i, (e.loaded * 100.0 / e.total) || 100)
-    })
-  
-    xhr.addEventListener('readystatechange', function(e) {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-        updateProgress(i, 100) // <- Add this
-      }
-      else if (xhr.readyState == 4 && xhr.status != 200) {
-        // Error. Inform the user
-      }
-    })
-  
-    formData.append('upload_preset', 'ujpu6gyk')
-    formData.append('file', file)
-    xhr.send(formData)
+
+  function rotateStop(event){
+    event.target.classList.add('activeOption');
+    document.getElementById('start_rotate').classList.remove('activeOption');
+    for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
+      document.getElementsByClassName('grid')[j].classList.remove('rotate');
+    }
   }
+
+  function rotatePause(event){
+    event.target.classList.toggle('activeOption');
+    for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
+      document.getElementsByClassName('grid')[j].classList.toggle('pause');
+    }
+  }
+
+  function randomStart(event){
+    event.target.classList.add('activeOption');
+    document.getElementById('stop_random').classList.remove('activeOption');
+    randomSize();
+  }
+
+
+  function randomSize(){
+    for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
+      let random = Math.floor(Math.random() * 150 + 1) + '%';
+      document.getElementsByClassName('grid')[j].style.backgroundSize = random;
+    }
+  }
+
+
+  function randomAnimate(){
+    document.getElementById('start_animate').classList.toggle('activeOption');
+    document.getElementById('stop_random').classList.remove('activeOption');
+    if (animate == true){
+      setAnimate(false);
+    } else {    
+      setAnimate(true);
+    }
+  }
+
+  let randomInterval;
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (animate == true){
+        randomInterval = setInterval(randomSize(), 100);
+      } else {    
+        randomInterval = null;
+        clearInterval(randomInterval);
+      }
+    }, 500)
+    return () => clearInterval(intervalId);
+  }, [animate])
+
+
+  function randomStop(event){
+    setAnimate(false);
+    document.getElementById('start_animate').classList.remove('activeOption');
+    event.target.classList.add('activeOption');
+    document.getElementById('start_random').classList.remove('activeOption');
+    for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
+      document.getElementsByClassName('grid')[j].style.backgroundSize = 'cover';
+    }
+  }
+
+  function smoothToggle(){
+    document.getElementById('smooth').classList.toggle('activeOption');
+    document.getElementById('main').classList.toggle('smooth');
+  }
+
+  function cursorToggle(){
+    document.getElementById('cursor').classList.toggle('activeOption');
+    document.getElementById('main').classList.toggle('no-cursor');
+    
+  }
+
+  function hoverToggle(){
+    document.getElementById('hover').classList.toggle('activeOption');
+    document.getElementById('main').classList.toggle('hover');
+  }
+
+  function updateSlider(){
+    document.getElementById('sw').innerText = document.getElementById('slider-width').value
+    document.getElementById('sh').innerText = document.getElementById('slider-height').value
+  }
+
   return (
     <Layout
     >
-      <div className="animate-page">
-        <h1>{page.data.title}</h1>
+      <div id="main" className="animate">
+        <div className="fixed activeToggle" id="fixed">
+          <div id="toggle" onClick={toggleMenu}></div>
+          <div className="menu">
+            <div className="flex">
+              <div className="option" onClick={addGrid}>Add grid</div>
+              <div className="option" onClick={addLayer}>Add Layer</div>
+            </div>
+            <div className="slidecontainer option">
+              
+              <input type="range" min="0" max="50" step='1' id="slider-width" onChange={updateSlider}/><span className="r-val" id="sw">25</span>
+              <input type="range" min="0" max="50" step='1' id="slider-height" onChange={updateSlider}/><span className="r-val" id="sh">25</span>
+            </div>
+            <div className="hide-grid option" id="hide" onClick={hideGrid}></div>
+            <div className="animations">
+              rotate
+              <div className="flex">
+                <div className="option" id="start_rotate" onClick={rotateStart}>Start</div>
+                <div className="option" id="pause_rotate" onClick={rotatePause}>Pause</div>
+                <div className="option" id="stop_rotate" onClick={rotateStop}>Stop</div>
+              </div>
+              random
+              <div className="flex">
+                <div className="option" id="start_random" onClick={randomStart}>Yes</div>
+                <div className="option" id="start_animate" onClick={randomAnimate}>Animate</div>
+                <div className="option" id="stop_random" onClick={randomStop}>No</div>
+              </div>
+              other
+              <div className="flex">
+                <div className="option" id="cursor" onClick={cursorToggle}>Cursor</div>
+                <div className="option" id="smooth" onClick={smoothToggle}>Smooth</div>
+                <div className="option" id="hover" onClick={hoverToggle}>Hover</div>
+              </div>
+            </div>
+            
+            <div className="flex small-flex">
+              <div className="option" id="eraser" onClick={toggleEraser}>Eraser</div>
+              <div className="option" onClick={clearGrid}>Clear all</div>
+            </div>
+          </div>
+          <div className="images" id="images">
+            {page.data.images.map((item, i) =>{
+              return(
+                <PrismicNextImage className={`img ${i == 0 && 'active'}`} alt={""} key={`img${i}`} field={item.image}/>
+              )
+            })}
+            <div className="img" id="custom">
+              custom
+            </div>
+          </div>
+          <div className="download option" onClick={printPDF}>download</div>
+          <h1>© {page.data.title}</h1>
+        </div>
 
-        <div id="drop-area">
-          <form class="my-form">
-            <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
-            <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)"/>
-            <label class="button" for="fileElem">Select some files</label>
-          </form>
-          <progress id="progress-bar" max="100" value="0"></progress>
-          <div id="gallery"/>
+        <div id="wrapper">
         </div>
-        </div>
+
+      
+
+        
+      </div>
     </Layout>
   );
 };
 
-export default Animate;
+export default Index;
 
 export async function getStaticProps({ previewData }) {
   const client = createClient({ previewData });
