@@ -16,4 +16,11 @@
       overflow: hidden;
     }
   }
+  button.grid.rotate-current{
+    animation-play-state: running;
+    animation: mymove 1s infinite linear;
+    &.pause{
+      animation-play-state: paused;
+    }
+  }
 }

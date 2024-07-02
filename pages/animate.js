@@ -46,7 +46,11 @@ const Index = ({ page}) => {
         } else {
           $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
           if (document.getElementById('start_animate').classList.contains('activeOption')){
-            $(this).addClass( "animate-current");
+            $(this).addClass("animate-current");
+          }
+          if (document.getElementById('start_rotate').classList.contains('activeOption')){
+            $(this).addClass("rotate-current");
+            console.log('hello')
           }
         }
       }
@@ -68,6 +72,9 @@ const Index = ({ page}) => {
             $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
             if (document.getElementById('start_animate').classList.contains('activeOption')){
               $(this).addClass( "animate-current");
+            }
+            if (document.getElementById('start_rotate').classList.contains('activeOption')){
+              $(this).addClass( "rotate-current");
             }
           }
         }
@@ -172,25 +179,15 @@ const Index = ({ page}) => {
   function rotateStart(event){
     event.target.classList.add('activeOption');
     document.getElementById('stop_rotate').classList.remove('activeOption');
-    // document.getElementById('pause_rotate').classList.remove('activeOption');
-    for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
-      document.getElementsByClassName('grid')[j].classList.add('rotate');
-    }
   }
 
   function rotateStop(event){
     event.target.classList.add('activeOption');
     document.getElementById('start_rotate').classList.remove('activeOption');
-    for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
-      document.getElementsByClassName('grid')[j].classList.remove('rotate');
-    }
   }
 
   function rotatePause(event){
     event.target.classList.toggle('activeOption');
-    for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
-      document.getElementsByClassName('grid')[j].classList.toggle('pause');
-    }
   }
 
   function randomStart(event){
