@@ -7,12 +7,10 @@ const Index = ({ page}) => {
 
   const [animate, setAnimate] = useState(false);
   const [sizeW, setSizeW] = useState();
-  const [sizeH, setSizeH] = useState();
 
   useEffect(() => {
     checkGrid();
     setSizeW(document.body.clientWidth);
-    setSizeH(document.body.clientHeight);
   });
   
   
@@ -47,6 +45,9 @@ const Index = ({ page}) => {
           $(this).html('<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg>');
         } else {
           $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+          if (document.getElementById('start_animate').classList.contains('activeOption')){
+            $(this).addClass( "animate-current");
+          }
         }
       }
      
@@ -65,6 +66,9 @@ const Index = ({ page}) => {
             $(this).html('<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg>');
           } else {
             $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+            if (document.getElementById('start_animate').classList.contains('activeOption')){
+              $(this).addClass( "animate-current");
+            }
           }
         }
       }
@@ -197,9 +201,9 @@ const Index = ({ page}) => {
 
 
   function randomSize(){
-    for(let j = 0; j < document.getElementsByClassName('grid').length; j++) {
+    for(let j = 0; j < document.getElementsByClassName('animate-current').length; j++) {
       let random = Math.floor(Math.random() * 150 + 1) + '%';
-      document.getElementsByClassName('grid')[j].style.backgroundSize = random;
+      document.getElementsByClassName('animate-current')[j].style.backgroundSize = random;
     }
   }
 
