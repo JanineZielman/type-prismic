@@ -294,7 +294,7 @@ const Index = ({ page}) => {
               <div className="flex">
                 <div className="option" id="cursor" onClick={cursorToggle}>Cursor</div>
                 <div className="option" id="smooth" onClick={smoothToggle}>Smooth</div>
-                <div className="option" id="hover" onClick={hoverToggle}>Hover</div>
+                {/* <div className="option" id="hover" onClick={hoverToggle}>Hover</div> */}
               </div>
             </div>
             
