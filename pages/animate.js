@@ -260,6 +260,29 @@ const Index = ({ page}) => {
     document.getElementById('sh').innerText = document.getElementById('slider-height').value
   }
 
+  
+  function openFullscreen() {
+    var elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+      elem.msRequestFullscreen();
+    }
+  }
+
+  function closeFullscreen() {
+    var elem = document.documentElement;
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+      document.msExitFullscreen();
+    }
+  }
+
   return (
     <Layout
     >
@@ -295,6 +318,10 @@ const Index = ({ page}) => {
                 <div className="option" id="cursor" onClick={cursorToggle}>Cursor</div>
                 <div className="option" id="smooth" onClick={smoothToggle}>Smooth</div>
                 {/* <div className="option" id="hover" onClick={hoverToggle}>Hover</div> */}
+              </div>
+              <div className="flex">
+                <div className="option" onClick={openFullscreen}>Open Fullscreen</div>
+                <div className="option" onClick={closeFullscreen}>Close Fullscreen</div>
               </div>
             </div>
             
