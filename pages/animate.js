@@ -178,15 +178,31 @@ const Index = ({ page}) => {
   function rotateStart(event){
     event.target.classList.add('activeOption');
     document.getElementById('stop_rotate').classList.remove('activeOption');
+    document.getElementById('pause_rotate').classList.remove('activeOption');
+    for(let j = 0; j < document.getElementsByClassName('rotate-current').length; j++) {
+      document.getElementsByClassName('rotate-current')[j].classList.remove('pause')
+      document.getElementsByClassName('rotate-current')[j].classList.remove('stop')
+    }
   }
 
   function rotateStop(event){
     event.target.classList.add('activeOption');
     document.getElementById('start_rotate').classList.remove('activeOption');
+    document.getElementById('pause_rotate').classList.remove('activeOption');
+    for(let j = 0; j < document.getElementsByClassName('rotate-current').length; j++) {
+      document.getElementsByClassName('rotate-current')[j].classList.add('stop')
+      document.getElementsByClassName('rotate-current')[j].classList.remove('pause')
+    }
   }
 
   function rotatePause(event){
     event.target.classList.toggle('activeOption');
+    document.getElementById('start_rotate').classList.remove('activeOption');
+    document.getElementById('stop_rotate').classList.remove('activeOption');
+    for(let j = 0; j < document.getElementsByClassName('rotate-current').length; j++) {
+      document.getElementsByClassName('rotate-current')[j].classList.add('pause')
+      document.getElementsByClassName('rotate-current')[j].classList.remove('stop')
+    }
   }
 
   function randomStart(event){
@@ -273,7 +289,6 @@ const Index = ({ page}) => {
   }
 
   function closeFullscreen() {
-    var elem = document.documentElement;
     if (document.exitFullscreen) {
       document.exitFullscreen();
     } else if (document.webkitExitFullscreen) { /* Safari */

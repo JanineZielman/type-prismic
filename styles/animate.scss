@@ -22,5 +22,8 @@
     &.pause{
       animation-play-state: paused;
     }
+    &.stop{
+      animation: none;
+    }
   }
 }
