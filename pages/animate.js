@@ -266,11 +266,6 @@ const Index = ({ page}) => {
     
   }
 
-  function hoverToggle(){
-    document.getElementById('hover').classList.toggle('activeOption');
-    document.getElementById('main').classList.toggle('hover');
-  }
-
   function updateSlider(){
     document.getElementById('sw').innerText = document.getElementById('slider-width').value
     document.getElementById('sh').innerText = document.getElementById('slider-height').value
@@ -298,19 +293,36 @@ const Index = ({ page}) => {
     }
   }
 
+  function makeVertical(event){
+    event.target.classList.add('activeOption');
+    document.getElementById('horizontal').classList.remove('activeOption');
+    document.getElementById('main').classList.add('vertical')
+    document.getElementById('main').classList.remove('horizontal')
+  }
+
+  function makeHorizontal(event){
+    event.target.classList.add('activeOption');
+    document.getElementById('vertical').classList.remove('activeOption');
+    document.getElementById('main').classList.add('horizontal')
+    document.getElementById('main').classList.remove('vertical')
+  }
+
   return (
     <Layout
     >
-      <div id="main" className="animate">
+      <div id="main" className="animate vertical">
         <div className="fixed activeToggle" id="fixed">
           <div id="toggle" onClick={toggleMenu}></div>
           <div className="menu">
+            <div className="flex">
+              <div className="option activeOption" id="vertical" onClick={makeVertical}>Vertical</div>
+              <div className="option" onClick={makeHorizontal} id="horizontal">Horizontal</div>
+            </div>
             <div className="flex">
               <div className="option" onClick={addGrid}>Add grid</div>
               <div className="option" onClick={addLayer}>Add Layer</div>
             </div>
             <div className="slidecontainer option">
-              
               <input type="range" min="0" max="50" step='1' id="slider-width" onChange={updateSlider}/><span className="r-val" id="sw">25</span>
               <input type="range" min="0" max="50" step='1' id="slider-height" onChange={updateSlider}/><span className="r-val" id="sh">25</span>
             </div>
@@ -332,7 +344,6 @@ const Index = ({ page}) => {
               <div className="flex">
                 <div className="option" id="cursor" onClick={cursorToggle}>Cursor</div>
                 <div className="option" id="smooth" onClick={smoothToggle}>Smooth</div>
-                {/* <div className="option" id="hover" onClick={hoverToggle}>Hover</div> */}
               </div>
               <div className="flex">
                 <div className="option" onClick={openFullscreen}>Open Fullscreen</div>
