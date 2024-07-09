@@ -329,20 +329,6 @@ button.grid.rotate{
   height: 500px;
 }
 
-
-.grid svg{
-  width: 100%!important;
-  height: 100%!important;
-  object-fit: contain;
-  transition: all 0.4s ease;
-  position: absolute;
-  transform: translate(-50%,-50%);
-  ellipse{
-    cx: 50%;
-    cy: 50%;
-  }
-}
-
 .r-val{
   margin-left: 5px;
   margin-right: 5px;
