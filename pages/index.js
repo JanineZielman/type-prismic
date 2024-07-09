@@ -1,10 +1,7 @@
-import { createClient } from "../prismicio";
 import { Layout } from "../components/Layout";
-import { PrismicNextImage } from "@prismicio/next";
 import { useEffect, useState } from "react";
 
-const Index = ({ page}) => {
-
+const Index = () => {
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
@@ -39,11 +36,7 @@ const Index = ({ page}) => {
       if (document.getElementById('eraser')?.classList.contains('activeEraser')){
         $(this).css({'backgroundImage': ``});
       } else {
-        if (document.getElementById('custom').className.includes('active')){
-          $(this).html('<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg>');
-        } else {
           $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
-        }
       }
      
     });
@@ -57,11 +50,7 @@ const Index = ({ page}) => {
         if (document.getElementById('eraser')?.classList.contains('activeEraser')){
           $(this).css({'backgroundImage': ``});
         } else {
-          if (document.getElementById('custom').className.includes('active')){
-            // $(this).html('<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg>');
-          } else {
             $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
-          }
         }
       }
     });
@@ -244,15 +233,22 @@ const Index = ({ page}) => {
     
   }
 
-  function hoverToggle(){
-    document.getElementById('hover').classList.toggle('activeOption');
-    document.getElementById('main').classList.toggle('hover');
-  }
-
   function updateSlider(){
     document.getElementById('sw').innerText = document.getElementById('slider-width').value
     document.getElementById('sh').innerText = document.getElementById('slider-height').value
   }
+
+  var loadFile = function(e) {
+    for (let i = 0; i < e.target.files.length; i++) {
+      var image = document.createElement('img');
+      image.src = URL.createObjectURL(e.target.files[i]);
+      image.classList.add('img')
+      document.getElementById('images').appendChild(image);
+      if (i == 0){
+        image.classList.add('active')
+      }
+    }
+  };
 
   return (
     <Layout
@@ -261,6 +257,9 @@ const Index = ({ page}) => {
         <div className="fixed activeToggle" id="fixed">
           <div id="toggle" onClick={toggleMenu}></div>
           <div className="menu">
+            <div className="files">
+              <input multiple type="file" accept="image/*" name="image" id="file" onChange={loadFile}/>
+            </div>
             <div className="flex">
               <div className="option" onClick={addGrid}>Add grid</div>
               <div className="option" onClick={addLayer}>Add Layer</div>
@@ -288,7 +287,6 @@ const Index = ({ page}) => {
               <div className="flex">
                 <div className="option" id="cursor" onClick={cursorToggle}>Cursor</div>
                 <div className="option" id="smooth" onClick={smoothToggle}>Smooth</div>
-                {/* <div className="option" id="hover" onClick={hoverToggle}>Hover</div> */}
               </div>
             </div>
             
@@ -298,17 +296,9 @@ const Index = ({ page}) => {
             </div>
           </div>
           <div className="images" id="images">
-            {page.data.images.map((item, i) =>{
-              return(
-                <PrismicNextImage className={`img ${i == 0 && 'active'}`} alt={""} key={`img${i}`} field={item.image}/>
-              )
-            })}
-            <div className="img" id="custom">
-              custom
-            </div>
           </div>
           <div className="download option" onClick={printPDF}>download</div>
-          <h1>© {page.data.title}</h1>
+          <h1>© Variable Type for Spaces and Places</h1>
         </div>
 
         <div id="wrapper">
@@ -323,16 +313,3 @@ const Index = ({ page}) => {
 };
 
 export default Index;
-
-export async function getStaticProps({ previewData }) {
-  const client = createClient({ previewData });
-
-  const page = await client.getSingle("home");
-
-
-  return {
-    props: {
-      page
-    },
-  };
-}
