@@ -33,3 +33,22 @@
     }
   }
 }
+
+.active-draw.grow{
+  animation-fill-mode: forwards;
+  background-repeat: no-repeat;
+  animation: morphingEffect 1s infinite ease;
+}
+
+@keyframes morphingEffect {
+  0% {
+    background-size: 100%;
+  }
+  50% {
+    background-size: 0%;
+  }
+
+  100% {
+    background-size: 100%;
+  }
+}

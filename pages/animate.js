@@ -40,16 +40,24 @@ const Index = ({ page}) => {
     $('.grid').mousedown(function(){
       if (document.getElementById('eraser')?.classList.contains('activeEraser')){
         $(this).css({'backgroundImage': ``});
+        $(this).removeClass("active-draw");
       } else {
         if (document.getElementById('custom').className.includes('active')){
           $(this).html('<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg>');
         } else {
           $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+          $(this).addClass("active-draw");
           if (document.getElementById('start_animate').classList.contains('activeOption')){
             $(this).addClass("animate-current");
           }
           if (document.getElementById('start_rotate').classList.contains('activeOption')){
             $(this).addClass("rotate-current");
+          }
+          if (document.getElementById('grow').classList.contains('activeOption')){
+            $(this).addClass("grow");
+          }
+          if (document.getElementById('morph').classList.contains('activeOption')){
+            $(this).addClass("grow");
           }
         }
       }
@@ -64,16 +72,24 @@ const Index = ({ page}) => {
       if(pressedDown) {
         if (document.getElementById('eraser')?.classList.contains('activeEraser')){
           $(this).css({'backgroundImage': ``});
+          $(this).removeClass("active-draw");
         } else {
           if (document.getElementById('custom').className.includes('active')){
             // $(this).html('<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /><ellipse class="ani" cx="25" cy="25" rx="25" ry="25" fill="blue" /></svg>');
           } else {
             $(this).css({'backgroundImage': `url(${document.getElementsByClassName("active")[0].src})`});
+            $(this).addClass("active-draw");
             if (document.getElementById('start_animate').classList.contains('activeOption')){
               $(this).addClass( "animate-current");
             }
             if (document.getElementById('start_rotate').classList.contains('activeOption')){
               $(this).addClass( "rotate-current");
+            }
+            if (document.getElementById('grow').classList.contains('activeOption')){
+              $(this).addClass("grow");
+            }
+            if (document.getElementById('morph').classList.contains('activeOption')){
+              $(this).addClass("grow");
             }
           }
         }
@@ -307,6 +323,34 @@ const Index = ({ page}) => {
     document.getElementById('main').classList.remove('vertical')
   }
 
+  function growToggle(){
+    event.target.classList.toggle('activeOption');
+  }
+
+  useEffect(() => {
+    setInterval(() => {
+      if (document.getElementById('morph').classList.contains('activeOption')){
+        for(let j = 0; j < document.getElementsByClassName('active-draw').length; j++) {
+    
+
+            document.getElementsByClassName('active-draw')[j].style.backgroundImage = `url(${page.data.images[ Math.floor(Math.random()* page.data.images.length)].image.url})`;
+
+         
+        }
+      } else {
+        for(let j = 0; j < document.getElementsByClassName('active-draw').length; j++) {
+          document.getElementsByClassName('active-draw')[j].style.backgroundSize = 'cover';
+        }
+      }
+    }, 1000);
+  }, [])
+  
+
+
+  function morphToggle(){
+    event.target.classList.toggle('activeOption');
+  }
+
   return (
     <Layout
     >
@@ -344,6 +388,10 @@ const Index = ({ page}) => {
               <div className="flex">
                 <div className="option" id="cursor" onClick={cursorToggle}>Cursor</div>
                 <div className="option" id="smooth" onClick={smoothToggle}>Smooth</div>
+              </div>
+              <div className="flex">
+                <div className="option" id="grow" onClick={growToggle}>Bounce</div>
+                <div className="option" id="morph" onClick={morphToggle}>Morph</div>
               </div>
               <div className="flex">
                 <div className="option" onClick={openFullscreen}>Open Fullscreen</div>
