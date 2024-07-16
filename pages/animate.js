@@ -351,6 +351,15 @@ const Index = ({ page}) => {
     event.target.classList.toggle('activeOption');
   }
 
+  function invertColors(){
+    document.getElementById('main').classList.toggle('invert');
+    event.target.classList.toggle('activeOption');
+  }
+
+  function changeColor(){
+    document.getElementById('main').style.backgroundColor = document.getElementById('bg_color').value;
+  }
+
   return (
     <Layout
     >
@@ -365,6 +374,11 @@ const Index = ({ page}) => {
             <div className="flex">
               <div className="option" onClick={addGrid}>Add grid</div>
               <div className="option" onClick={addLayer}>Add Layer</div>
+            </div>
+            <div className="flex">
+              Color
+              <input type="color" id="bg_color" name="bg_color" value="#fffff" onChange={changeColor} />
+              <div className="option" id="invert" onClick={invertColors}>Dark Mode</div>
             </div>
             <div className="slidecontainer option">
               <input type="range" min="0" max="50" step='1' id="slider-width" onChange={updateSlider}/><span className="r-val" id="sw">25</span>
