@@ -58,6 +58,7 @@ const Index = ({ page}) => {
           }
           if (document.getElementById('morph').classList.contains('activeOption')){
             $(this).addClass("grow");
+            $(this).addClass("morph");
           }
         }
       }
@@ -90,6 +91,7 @@ const Index = ({ page}) => {
             }
             if (document.getElementById('morph').classList.contains('activeOption')){
               $(this).addClass("grow");
+              $(this).addClass("morph");
             }
           }
         }
@@ -330,16 +332,10 @@ const Index = ({ page}) => {
   useEffect(() => {
     setInterval(() => {
       if (document.getElementById('morph').classList.contains('activeOption')){
-        for(let j = 0; j < document.getElementsByClassName('active-draw').length; j++) {
-    
-
-            document.getElementsByClassName('active-draw')[j].style.backgroundImage = `url(${page.data.images[ Math.floor(Math.random()* page.data.images.length)].image.url})`;
-
-         
-        }
-      } else {
-        for(let j = 0; j < document.getElementsByClassName('active-draw').length; j++) {
-          document.getElementsByClassName('active-draw')[j].style.backgroundSize = 'cover';
+        for(let j = 0; j < document.getElementsByClassName('morph').length; j++) {
+          if(document.getElementsByClassName('morph').length > 0){
+            document.getElementsByClassName('morph')[j].style.backgroundImage = document.getElementsByClassName('active-draw')[Math.floor(Math.random()* document.getElementsByClassName('active-draw').length)].style.backgroundImage
+          }
         }
       }
     }, 1000);
