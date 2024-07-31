@@ -36,6 +36,7 @@
   .fixed{
     right: -150px;
     overflow: visible;
+    overflow-y: scroll;
     width: 110px;
     &.activeToggle{
       right: 0;
