@@ -1,15 +1,22 @@
+*{
+  box-sizing: border-box;
+}
+
 .animate{
   position: fixed;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &.vertical .container, &.vertical .layer .container2{
     width: auto;
-    height: 100vh;
+    height: 95vh;
     aspect-ratio: 9 / 16;
   }
   &.horizontal .container, &.horizontal .layer .container2{
-    width: 100vw;
+    width: 95vw;
     height: auto;
     aspect-ratio: 16 / 9;
   }

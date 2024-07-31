@@ -10,7 +10,7 @@ const Index = ({ page}) => {
 
   useEffect(() => {
     checkGrid();
-    setSizeW(document.body.clientWidth);
+    setSizeW(document.body.clientWidth * 0.95);
   });
   
   
