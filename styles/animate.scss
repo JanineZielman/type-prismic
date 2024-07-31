@@ -8,18 +8,65 @@
   height: 100vh;
   overflow: hidden;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: start;
+  // align-items: center;
+  top: 0;
+  
+  &.vertical{
+    height: auto;
+    width: 89.5vw;
+    overflow: hidden;
+    aspect-ratio: 9/16;
+  }
+  &.horizontal{
+    height: auto;
+    width: 89.5vw;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+  }
   &.vertical .container, &.vertical .layer .container2{
-    width: auto;
-    height: 95vh;
-    aspect-ratio: 9 / 16;
+    width: 100vw;
+    height: 100vh;
   }
   &.horizontal .container, &.horizontal .layer .container2{
-    width: 95vw;
-    height: auto;
-    aspect-ratio: 16 / 9;
+    width: 100vw;
+    height: 100vh;
   }
+
+  .fixed{
+    right: -150px;
+    overflow: visible;
+    width: 110px;
+    &.activeToggle{
+      right: 0;
+    }
+    .menu{
+      width: calc(100% - 20px);
+    }
+    .flex{
+      flex-direction: column;
+      .option{
+        width: 100%;
+      }
+    }
+    .images{
+      width: 100%;
+      margin-top: 900px;
+      img{
+        width:25px;
+        height: 25px;
+      }
+    }
+    .download{
+      width: 90px;
+      padding: 5px 10px;
+    }
+    *{
+      font-size: 10px;
+    }
+  }
+
+
   .container{
     overflow: hidden;
   }

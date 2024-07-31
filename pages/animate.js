@@ -107,8 +107,8 @@ const Index = ({ page}) => {
     container.setAttributeNode(idVal);     
     document.getElementById('wrapper').appendChild(container);
     // console.log(document.body.clientWidth/document.getElementById('slider-width').value)
-    for(let i = 0; i < (document.getElementById('slider-width').value) * 2; i++) {
-      for(let j = 0; j < (document.getElementById('slider-height').value * 2); j++) {
+    for(let i = 0; i < (document.getElementById('slider-width').value) * 5; i++) {
+      for(let j = 0; j < (document.getElementById('slider-height').value * 5); j++) {
         let div = document.createElement('button');
         let attr = document.createAttribute('class');
         attr.value = 'grid';
@@ -141,8 +141,8 @@ const Index = ({ page}) => {
       container2.setAttributeNode(idVal);  
       layer.appendChild(container2);
 
-      for(let i = 0; i < (document.getElementById('slider-width').value * 2); i++) {
-        for(let j = 0; j < (document.getElementById('slider-height').value * 2); j++) {
+      for(let i = 0; i < (document.getElementById('slider-width').value * 5); i++) {
+        for(let j = 0; j < (document.getElementById('slider-height').value * 5); j++) {
           let div = document.createElement('button');
           let attr = document.createAttribute('class');
           attr.value = 'grid';
