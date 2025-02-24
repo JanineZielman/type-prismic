@@ -257,7 +257,7 @@ const Index = ({ page}) => {
   return (
     <Layout
     >
-      <div id="main">
+      <div id="main" className="index">
         <div className="fixed activeToggle" id="fixed">
           <div id="toggle" onClick={toggleMenu}></div>
           <div className="menu">

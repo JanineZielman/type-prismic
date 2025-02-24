@@ -264,6 +264,8 @@ button.grid.rotate{
   margin-bottom: 10px;
 }
 
+
+.animate, .index{
 @page{
   margin: 0;
 }
@@ -283,6 +285,7 @@ button.grid.rotate{
   .menu{
     display: none;
   }
+}
 }
 
 .animate-page{

@@ -2,8 +2,8 @@
   box-sizing: border-box;
 }
 
-.animate{
-  position: fixed;
+.animate2{
+  position: absolute;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -20,7 +20,7 @@
   }
   &.horizontal{
     height: auto;
-    width: 89.5vw;
+    width: 100vw;
     overflow: hidden;
     aspect-ratio: 16/9;
   }
@@ -38,6 +38,7 @@
     overflow: visible;
     overflow-y: scroll;
     width: 110px;
+    background-color: rgb(8,44,15);
     &.activeToggle{
       right: 0;
     }
@@ -51,11 +52,14 @@
       }
     }
     .images{
+      flex-direction: column;
       width: 100%;
-      margin-top: 850px;
+      align-items: center;
       img{
-        width:25px;
-        height: 25px;
+        width:100%;
+        height: auto;
+        max-width: 50px;
+        margin-bottom: 5px;
       }
     }
     .download{
@@ -63,7 +67,7 @@
       padding: 5px 10px;
     }
     *{
-      font-size: 10px;
+      font-size: 12px;
     }
   }
 
@@ -87,46 +91,34 @@
       animation: none;
     }
   }
-}
-
-.active-draw.grow{
-  animation-fill-mode: forwards;
-  background-repeat: no-repeat;
-  animation: morphingEffect 1s infinite ease;
-}
-
-@keyframes morphingEffect {
-  0% {
-    background-size: 100%;
-  }
-  50% {
-    background-size: 0%;
+  .active-draw.grow{
+    animation-fill-mode: forwards;
+    background-repeat: no-repeat;
+    animation: morphingEffect 1s infinite ease;
   }
 
-  100% {
-    background-size: 100%;
+  #wrapper{
+    background-color: rgb(8,44,15);
   }
-}
 
-#main.invert{
-  background-color: black!important;
-  color: white!important;
-  *{
-    filter: invert(1) contrast(10)!important;
-    color: black!important;
-    border-color: white!important;
+  .active-draw.grow.pause{
+    animation-play-state: paused;
   }
-  .option{
-    color: black!important;
+
+  @media print{
+    .images, .download, .fixed{
+      display: none;
+    }
+    button, input, label, h1{
+      display: none;
+    }
+    button.grid{
+      display: inline-block;
+      border: none;
+    }
+    .menu{
+      display: none;
+    }
   }
-  .activeOption{
-    color: white!important;
-    border: 1px solid white!important;
-  }
-  .images #custom{
-    color: black!important;
-  }
-  #toggle{
-    color: white!important;
-  }
+  
 }
