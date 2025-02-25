@@ -9,7 +9,7 @@
   overflow: hidden;
   display: flex;
   justify-content: start;
-  // align-items: center;
+  background-color: rgb(8,44,15);
   top: 0;
   
   &.vertical{
@@ -84,10 +84,10 @@
   .active-draw.grow{
     animation-fill-mode: forwards;
     background-repeat: no-repeat;
-    animation: morphingEffect 2s infinite ease;
+    animation: morphingEffect2 2s infinite ease;
   }
 
-  @keyframes morphingEffect {
+  @keyframes morphingEffect2 {
     0% {
       background-size: 275%;
     }
@@ -111,6 +111,9 @@
   @media print{
     .images, .download, .fixed{
       display: none;
+    }
+    .animate2{
+      background-color: transparent;
     }
     button, input, label, h1{
       display: none;
