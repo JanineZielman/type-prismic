@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 const Index = () => {
   const [sizeW, setSizeW] = useState();
 
-  const gridWidth = 17;
-  const gridHeight = 50;
+  const gridWidth = 50;
+  const gridHeight = 17;
 
   useEffect(() => {
     checkGrid();
@@ -82,8 +82,8 @@ const Index = () => {
         let attr = document.createAttribute('class');
         attr.value = 'grid';
         div.setAttributeNode(attr);
-        div.style.width =  100 / 17 + 'vw'; 
-        div.style.height =  56.25 / 26 + 'vw';
+        div.style.width =  56.25 / 27 + 'vw'; 
+        div.style.height =  100 / 17 + 'vw';
         container.appendChild(div);
       }
     }
@@ -116,8 +116,8 @@ const Index = () => {
           let attr = document.createAttribute('class');
           attr.value = 'grid';
           div.setAttributeNode(attr);
-          div.style.width =  100 / 17 + 'vw'; 
-          div.style.height =  56.25 / 26 + 'vw';
+          div.style.width =  56.25 / 27 + 'vw'; 
+          div.style.height =  100 / 17 + 'vw';
           container2.appendChild(div);
         }
       }

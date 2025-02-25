@@ -81,20 +81,23 @@
       overflow: hidden;
     }
   }
-  button.grid.rotate-current{
-    animation-play-state: running;
-    animation: mymove 1s infinite linear;
-    &.pause{
-      animation-play-state: paused;
-    }
-    &.stop{
-      animation: none;
-    }
-  }
   .active-draw.grow{
     animation-fill-mode: forwards;
     background-repeat: no-repeat;
-    animation: morphingEffect 1s infinite ease;
+    animation: morphingEffect 2s infinite ease;
+  }
+
+  @keyframes morphingEffect {
+    0% {
+      background-size: 275%;
+    }
+    50% {
+      background-size: 0%;
+    }
+  
+    100% {
+      background-size: 275%;
+    }
   }
 
   #wrapper{
