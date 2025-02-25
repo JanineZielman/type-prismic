@@ -4,8 +4,13 @@ import { useEffect, useState } from "react";
 const Index = () => {
   const [sizeW, setSizeW] = useState();
 
+  const [cellWidth, setCellWidth] = useState(56.25 / 27);
+  const [cellHeight, setCellHeight] = useState( 100 / 17);
+
   const gridWidth = 50;
   const gridHeight = 17;
+
+  
 
   useEffect(() => {
     checkGrid();
@@ -26,6 +31,15 @@ const Index = () => {
       current[0].className = current[0].className.replace(" active", "");
       this.className += " active";
       });
+      if (document.getElementById('rotate').classList.contains('activeOption')){
+        document.querySelectorAll('.grid').forEach(el => {
+          el.classList.add("rgrid");
+        });
+      } else {
+        document.querySelectorAll('.grid').forEach(el => {
+          el.classList.remove("rgrid");
+        });
+      }
     }
 
     var pressedDown = false;
@@ -82,8 +96,8 @@ const Index = () => {
         let attr = document.createAttribute('class');
         attr.value = 'grid';
         div.setAttributeNode(attr);
-        div.style.width =  56.25 / 27 + 'vw'; 
-        div.style.height =  100 / 17 + 'vw';
+        div.style.width =  cellWidth + 'vw'; 
+        div.style.height =  cellHeight + 'vw';
         container.appendChild(div);
       }
     }
@@ -116,8 +130,8 @@ const Index = () => {
           let attr = document.createAttribute('class');
           attr.value = 'grid';
           div.setAttributeNode(attr);
-          div.style.width =  56.25 / 27 + 'vw'; 
-          div.style.height =  100 / 17 + 'vw';
+          div.style.width =  cellWidth + 'vw'; 
+          div.style.height =  cellHeight + 'vw';
           container2.appendChild(div);
         }
       }
@@ -211,6 +225,19 @@ const Index = () => {
     }
   }
 
+  function rotateGrid(){
+    event.target.classList.toggle('activeOption');
+    if (document.getElementById('rotate').classList.contains('activeOption')){
+      setCellWidth(100 / 17);
+      setCellHeight(56.25 / 27);
+    } else {
+      setCellWidth(56.25 / 27);
+      setCellHeight(100 / 17);
+    }
+    checkGrid();
+  }
+  
+
   return (
     <Layout
     >
@@ -221,6 +248,7 @@ const Index = () => {
             <div className="flex">
             <div className="option activeOption" onClick={makeHorizontal} id="horizontal">Horizontal</div>
             <div className="option" id="vertical" onClick={makeVertical}>Vertical</div>
+            <div className="option" id="rotate" onClick={rotateGrid}>Rotate Grid</div>
               
             </div>
             <div className="flex">
@@ -229,16 +257,11 @@ const Index = () => {
             </div>
             <div className="hide-grid option" id="hide" onClick={hideGrid}></div>
             <div className="animations">
-              other
-              <div className="flex">
-                <div className="option" id="cursor" onClick={cursorToggle}>Cursor</div>
-                <div className="option activeOption" id="grow" onClick={growToggle}>Bounce</div>
-                <div className="option" id="pause" onClick={pauseToggle}>Pause</div>
-              </div>
-              <div className="flex">
-                <div className="option" onClick={openFullscreen}>Open Fullscreen</div>
-                <div className="option" onClick={closeFullscreen}>Close Fullscreen</div>
-              </div>
+              <div className="option" id="cursor" onClick={cursorToggle}>Cursor</div>
+              <div className="option activeOption" id="grow" onClick={growToggle}>Bounce</div>
+              <div className="option" id="pause" onClick={pauseToggle}>Pause</div>
+              <div className="option" onClick={openFullscreen}>Open Fullscreen</div>
+              <div className="option" onClick={closeFullscreen}>Close Fullscreen</div>
             </div>
             
             <div className="flex small-flex">

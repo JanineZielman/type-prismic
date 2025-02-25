@@ -87,6 +87,10 @@
     animation: morphingEffect2 2s infinite ease;
   }
 
+  .active-draw.grow.rgrid{
+    animation: morphingEffect 2s infinite ease;
+  }
+
   @keyframes morphingEffect2 {
     0% {
       background-size: 275%;
